@@ -1,0 +1,8 @@
+{
+  "/core/*": {
+    "target": "http://montpellier-fr-smoove.klervi.net",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+    }
+}

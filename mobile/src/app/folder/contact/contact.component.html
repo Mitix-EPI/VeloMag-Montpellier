@@ -1,0 +1,45 @@
+<div id="container">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Contact Me:</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12">
+                  <ion-item (click)="goToGithubPage()">
+                    <ion-thumbnail slot="start">
+                      <img src="assets/github_icon.png">
+                    </ion-thumbnail>
+                    <ion-label>Github</ion-label>
+                  </ion-item>
+                  <ion-item (click)="copyString()">
+                    <ion-thumbnail slot="start">
+                      <img src="assets/mail_icon.jpg">
+                    </ion-thumbnail>
+                    <ion-label>Mail</ion-label>
+                  </ion-item>
+                  <ion-item (click)="goToLinkedInPage()">
+                    <ion-thumbnail slot="start">
+                      <img src="assets/linkedin_icon.png">
+                    </ion-thumbnail>
+                    <ion-label>LinkedIn</ion-label>
+                  </ion-item>
+                  <ion-item (click)="goToInstagram()">
+                    <ion-thumbnail slot="start">
+                      <img src="assets/instagram_icon.png">
+                    </ion-thumbnail>
+                    <ion-label>Instagram</ion-label>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>

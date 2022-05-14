@@ -1,0 +1,85 @@
+<ion-searchbar
+  placeholder="Search..."
+  [(ngModel)]="filterTerm"
+  animated="true"
+  autocorrect="true"
+></ion-searchbar>
+<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+  <ion-refresher-content
+    pullingIcon="chevron-down-circle-outline"
+    refreshingSpinner="circles"
+  >
+  </ion-refresher-content>
+</ion-refresher>
+<!-- loading screen -->
+<div *ngIf="!loaded" id="container">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Loading</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-spinner name="crescent" *ngIf="!loaded"></ion-spinner>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
+<div *ngIf="stations.length > 0">
+  <ion-card *ngFor="let station of stations | filter: filterTerm" class="has-card-footer">
+    <!-- Favorite button -->
+    <ion-fab vertical="top" horizontal="end">
+      <ion-fab-button color="light" (click)="toggleFavorite(station.id)">
+        <ion-icon
+          [ngClass]="{ 'red-heart': station.favorite }"
+          [name]="station.favorite ? 'heart-sharp' : 'heart-outline'"
+        ></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+    <img
+      [src]="'assets/' + getStationName(station.name) + '.jpg'"
+      alt="Image not found"
+    />
+    <ion-card-header>
+      <ion-card-subtitle>Capacity: {{ station.capacity }}</ion-card-subtitle>
+      <ion-card-title>
+        {{ station.name }}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item shape="round">
+        <ion-icon slot="start" name="bicycle-outline"></ion-icon>
+        <ion-label>Bikes available</ion-label>
+        <ion-badge
+          slot="end"
+          [color]="getColor(station.bikes, station.capacity)"
+          >{{ station.bikes }}</ion-badge
+        >
+      </ion-item>
+
+      <ion-item shape="round">
+        <ion-icon slot="start" name="contract-outline"></ion-icon>
+        <ion-label>Slots available</ion-label>
+        <ion-badge
+          slot="end"
+          [color]="getColor(station.slots, station.capacity)"
+          >{{ station.slots }}</ion-badge
+        >
+      </ion-item>
+    </ion-card-content>
+    <ion-footer class="ion-text-center">
+      <ion-button
+        shape="round"
+        fill="outline"
+        size="small"
+        (click)="redirectToStation(station.coords)"
+      >
+        <ion-icon name="pin-outline"></ion-icon>
+        <ion-label class="padding-label">Pin to map</ion-label>
+      </ion-button>
+    </ion-footer>
+  </ion-card>
+</div>

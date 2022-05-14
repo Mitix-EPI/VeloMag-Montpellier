@@ -1,0 +1,7 @@
+{
+  "name": "VeloMag",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

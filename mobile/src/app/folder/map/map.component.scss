@@ -1,0 +1,20 @@
+@import "ol/ol.css";
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.info-station {
+  position: absolute;
+  bottom: 0;
+  height: 40%;
+  width: 100%;
+  background: var(--ion-item-background, var(--ion-background-color, #fff));
+}
+
+.info-station-hide {
+  display: none;
+}

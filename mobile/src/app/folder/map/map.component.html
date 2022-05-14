@@ -1,0 +1,9 @@
+<div id="map" style="width: 100%; height: 100%"></div>
+<div id="info-station" class="info-station info-station-hide">
+  <app-info
+    *ngIf="selectedFeature"
+    [stationId]="getIdSelectedStation()"
+    [stationName]="getNameSelectedStation()"
+    [coords]="getCoordsSelectedStation()"
+  ></app-info>
+</div>
