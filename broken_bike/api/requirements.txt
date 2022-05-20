@@ -1,2 +1,4 @@
 fastapi==0.74.0
-uvicorn==0.17.5
+uvicorn==0.17.6
+mysql-connector-python==8.0.28
+fastapi==0.78.0
