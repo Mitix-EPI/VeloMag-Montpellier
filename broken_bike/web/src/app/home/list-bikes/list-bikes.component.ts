@@ -18,6 +18,7 @@ export class ListBikesComponent {
   bikes: Bike[] = [
     {
       id: 1,
+      id_bike: 1,
       priority: 'Low',
       reason: 'Brake problem',
       date: new Date(),
@@ -26,6 +27,7 @@ export class ListBikesComponent {
     },
     {
       id: 2,
+      id_bike: 2,
       priority: 'Important',
       reason: 'Gear problem',
       date: new Date('2020-01-01'),
@@ -34,6 +36,7 @@ export class ListBikesComponent {
     },
     {
       id: 3,
+      id_bike: 3,
       priority: 'Urgent',
       reason: 'Seat problem',
       date: new Date('2021-01-01'),
@@ -42,6 +45,7 @@ export class ListBikesComponent {
     },
     {
       id: 4,
+      id_bike: 4,
       priority: 'Low',
       reason: 'Touch panel not working',
       date: new Date('2022-01-01'),
@@ -50,6 +54,7 @@ export class ListBikesComponent {
     },
     {
       id: 5,
+      id_bike: 5,
       priority: 'Low',
       reason: 'Other',
       date: new Date('2023-01-01'),
@@ -58,6 +63,7 @@ export class ListBikesComponent {
     },
     {
       id: 6,
+      id_bike: 6,
       priority: 'Low',
       reason: 'Other',
       date: new Date('2024-01-01'),
@@ -66,6 +72,7 @@ export class ListBikesComponent {
     },
     {
       id: 7,
+      id_bike: 7,
       priority: 'Important',
       reason: 'Other',
       date: new Date('2025-01-01'),
@@ -74,6 +81,7 @@ export class ListBikesComponent {
     },
     {
       id: 8,
+      id_bike: 8,
       priority: 'Urgent',
       reason: 'Other',
       date: new Date('2026-01-01'),
@@ -82,6 +90,7 @@ export class ListBikesComponent {
     },
     {
       id: 9,
+      id_bike: 9,
       priority: 'Low',
       reason: 'Other',
       date: new Date('2027-01-01'),
@@ -90,6 +99,7 @@ export class ListBikesComponent {
     },
     {
       id: 10,
+      id_bike: 10,
       priority: 'Urgent',
       reason: 'Seat problem',
       date: new Date('2028-01-01'),
@@ -98,6 +108,7 @@ export class ListBikesComponent {
     },
     {
       id: 11,
+      id_bike: 11,
       priority: 'Urgent',
       reason: 'Seat problem',
       date: new Date('2029-01-01'),
@@ -106,6 +117,7 @@ export class ListBikesComponent {
     },
     {
       id: 12,
+      id_bike: 12,
       priority: 'Urgent',
       reason: 'Seat problem',
       date: new Date('2030-01-01'),
@@ -114,6 +126,7 @@ export class ListBikesComponent {
     },
     {
       id: 13,
+      id_bike: 13,
       priority: 'Important',
       reason: 'Gear problem',
       date: new Date('2031-01-01'),
@@ -122,6 +135,7 @@ export class ListBikesComponent {
     },
     {
       id: 14,
+      id_bike: 14,
       priority: 'Urgent',
       reason: 'Seat problem',
       date: new Date('2032-01-01'),
@@ -130,6 +144,7 @@ export class ListBikesComponent {
     },
     {
       id: 15,
+      id_bike: 15,
       priority: 'Low',
       reason: 'Touch panel not working',
       date: new Date('2033-01-01'),
