@@ -14,9 +14,9 @@ class Bikes:
             return None
 
     def add_broken_bike(self, bike_id: int, priority: str, reason: str, description: str) -> None:
-        date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         try:
-            self.db.cursor.execute("INSERT INTO bikes (bike_id, priority, reason, description, date) VALUES (%s, %s, %s, %s, %s)", (
+            self.db.cursor.execute("INSERT INTO bikes (id_bike, priority, reason, description, created_at) VALUES (%s, %s, %s, %s, %s)", (
                 bike_id, priority, reason, description, date))
             self.db.conn.commit()
             return True
