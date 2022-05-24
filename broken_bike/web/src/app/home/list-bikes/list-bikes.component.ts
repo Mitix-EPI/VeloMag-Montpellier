@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Bike } from 'src/app/interfaces/bikes.interfaces';
 import { DatePipe } from '@angular/common';
+import { VelomagService } from 'src/app/services/velomag.service';
 
 @Component({
   selector: 'app-list-bikes',
@@ -153,13 +154,19 @@ export class ListBikesComponent {
     },
   ];
 
-  constructor(public datePipe: DatePipe) { }
+  constructor(public datePipe: DatePipe, private bikesService: VelomagService) {
+    this.bikesService.getBikes()
+    .then((bikes: any) => {
+      this.bikes = bikes['data'];
+    })
+    .catch(error => console.log(error));
+  }
 
   checkAll() {
     this.bikes.forEach(bike => bike.checked = this.isAllChecked);
   }
 
   deleteBike(bike: any) {
-    console.log(bike)
+    this.bikesService.removeBike(bike.id)
   }
 }

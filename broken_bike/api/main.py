@@ -43,11 +43,21 @@ async def get_bikes():
         return {"code": 200, "message": "Success", "data": res}
     
 @app.post("/remove_bike/{bike_id}")
-async def remove_bike(bike_id: int):
+async def remove_bike(bike_id: int, request: Request):
+    body = await request.json()
+    username = body['username']
+    password = body['password']
     if db.conn is None:
         return {"code": 500, "message": "Database connection failed"}
+    res = user.connect(username, password)
+    if res is None:
+        return {"code": 500, "message": "Database query failed"}
+    elif res is False:
+        return {"code": 401, "message": "Unauthorized"}
     res = bikes.remove_bike(bike_id)
     if res is None:
+        return {"code": 500, "message": "Database query failed"}
+    elif res is False:
         return {"code": 500, "message": "Database query failed"}
     else:
         return {"code": 200, "message": "Success"}
