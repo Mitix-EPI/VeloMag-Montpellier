@@ -18,14 +18,9 @@ bikes = Bikes(db)
 user = User(db)
 app = FastAPI()
 
-origins = [
-    "http://localhost",
-    "http://localhost:55555",
-]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -59,7 +54,7 @@ async def remove_bike(bike_id: int):
     
 @app.post("/add_broken_bike")
 async def add_broken_bike(request: Request):
-    body = request.json()
+    body = await request.json()
     bike_id = body['bike_id']
     priority = body['priority']
     reason = body['reason']
@@ -78,7 +73,7 @@ async def add_broken_bike(request: Request):
 
 @app.post("/login")
 async def login(request: Request):
-    body = request.json()
+    body = await request.json()
     username = body['username']
     password = body['password']
     if db.conn is None:

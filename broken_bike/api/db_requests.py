@@ -42,7 +42,7 @@ class User:
     def connect(self, username, password):
         try:
             self.db.cursor.execute(
-                "SELECT * FROM users WHERE username = %s AND password = %s", (username, password))
+                "SELECT * FROM admin WHERE email = %s AND password = %s", (username, password))
             if self.db.cursor.rowcount == 1:
                 return True
             else:
