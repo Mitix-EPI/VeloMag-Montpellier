@@ -158,4 +158,8 @@ export class ListBikesComponent {
   checkAll() {
     this.bikes.forEach(bike => bike.checked = this.isAllChecked);
   }
+
+  deleteBike(bike: any) {
+    console.log(bike)
+  }
 }
