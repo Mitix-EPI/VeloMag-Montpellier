@@ -4,6 +4,7 @@ from connect_db import ConnectDB
 import os
 import uvicorn
 from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
 from db_requests import Bikes, User
 
 priorityEnum = ['low', 'important', 'urgent']
@@ -16,6 +17,20 @@ db = ConnectDB(USER, PASSWORD)
 bikes = Bikes(db)
 user = User(db)
 app = FastAPI()
+
+origins = [
+    "http://localhost",
+    "http://localhost:55555",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 async def root():
@@ -79,4 +94,4 @@ async def login(request: Request):
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8080)
+    uvicorn.run(app, host="0.0.0.0", port=55555)
