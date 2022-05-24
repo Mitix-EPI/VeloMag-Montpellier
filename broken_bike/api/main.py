@@ -3,7 +3,7 @@
 from connect_db import ConnectDB
 import os
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from db_requests import Bikes, User
 
 priorityEnum = ['low', 'important', 'urgent']
@@ -44,7 +44,12 @@ async def remove_bike(bike_id: int):
         return {"code": 200, "message": "Success"}
     
 @app.post("/add_broken_bike")
-async def add_broken_bike(bike_id: int, priority, reason, description):
+async def add_broken_bike(request: Request):
+    body = request.json()
+    bike_id = body['bike_id']
+    priority = body['priority']
+    reason = body['reason']
+    description = body['description']
     if db.conn is None:
         return {"code": 500, "message": "Database connection failed"}
     if priority not in priorityEnum:
@@ -57,8 +62,11 @@ async def add_broken_bike(bike_id: int, priority, reason, description):
     else:
         return {"code": 200, "message": "Success"}
 
-@app.get("/login")
-async def login(username: str, password: str):
+@app.post("/login")
+async def login(request: Request):
+    body = request.json()
+    username = body['username']
+    password = body['password']
     if db.conn is None:
         return {"code": 500, "message": "Database connection failed"}
     res = user.connect(username, password)
