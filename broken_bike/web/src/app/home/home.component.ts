@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { VelomagService } from '../services/velomag.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
 
-  constructor() { }
+  isAdmin = false;
 
-  ngOnInit(): void {
+  constructor(private bikesService: VelomagService) {
+    this.isAdmin = this.bikesService.isAdmin
   }
 
 }

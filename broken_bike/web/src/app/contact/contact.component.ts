@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { VelomagService } from '../services/velomag.service';
 
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss']
 })
-export class ContactComponent implements OnInit {
+export class ContactComponent {
 
-  constructor() { }
+  isAdmin = false;
 
-  ngOnInit(): void {
+  constructor(private bikesService: VelomagService) {
+    this.isAdmin = this.bikesService.isAdmin
   }
 
 }

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { VelomagService } from '../services/velomag.service';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +11,7 @@ export class HeaderComponent implements OnInit {
   @Input() isAdmin = false;
   currentPageRoot = 'home';
 
-  constructor() {
+  constructor(private bikesService: VelomagService) {
     this.currentPageRoot = window.location.pathname.split('/')[1];
   }
 
@@ -21,8 +22,15 @@ export class HeaderComponent implements OnInit {
     window.location.href='/';
   }
 
-  openModel(isAdmin: boolean) {
-    console.log('model');
+  handleConnection(isAdmin: boolean) {
+    if (isAdmin) {
+      this.bikesService.clearLogin();
+      isAdmin = false;
+      // Reload the page
+      window.location.reload();
+    } else {
+      window.location.href='/login';
+    }
   }
 
 }

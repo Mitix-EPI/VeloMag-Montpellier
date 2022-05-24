@@ -7,7 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class VelomagService {
 
-  URL = 'http://localhost:8080/'; // TODO Change
+  URL = 'http://velomag.chickenkiller.com:55555/';
   username: string = "";
   password: string = "";
   isAdmin: boolean = false;

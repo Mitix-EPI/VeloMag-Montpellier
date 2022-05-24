@@ -12,6 +12,10 @@ import { ListBikesComponent } from './home/list-bikes/list-bikes.component';
 import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
 import { AboutComponent } from './about/about.component';
+import { VelomagService } from './services/velomag.service';
+import { CookieService } from 'ngx-cookie-service';
+import { LoginComponent } from './login/login.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -21,16 +25,18 @@ import { AboutComponent } from './about/about.component';
     ListBikesComponent,
     HomeComponent,
     ContactComponent,
-    AboutComponent
+    AboutComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     Ng2SearchPipeModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, VelomagService, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
