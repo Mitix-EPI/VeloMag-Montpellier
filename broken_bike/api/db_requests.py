@@ -43,6 +43,7 @@ class User:
         try:
             self.db.cursor.execute(
                 "SELECT * FROM admin WHERE email = %s AND password = %s", (username, password))
+            self.db.fetchone()
             if self.db.cursor.rowcount == 1:
                 return True
             else:
