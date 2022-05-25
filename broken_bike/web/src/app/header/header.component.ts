@@ -18,11 +18,8 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  goToHome() {
-    window.location.href='/';
-  }
-
   handleConnection(isAdmin: boolean) {
+    // TODO
     if (isAdmin) {
       this.bikesService.clearLogin();
       isAdmin = false;
