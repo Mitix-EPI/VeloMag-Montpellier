@@ -44,7 +44,7 @@
       <ion-icon [ngClass]="{'red-heart': station.favorite}" [name]="station.favorite ? 'heart-sharp' : 'heart-outline'"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  <img [src]="'assets/' + getStationName(station.name) + '.jpg'" alt="Image not found"/>
+  <img [src]="'assets/' + getStationName(station.name) + '.jpg'" alt="Missing image" onerror="this.onerror=null;this.src='assets/missing-station.jpg';"/>
   <ion-card-header>
     <ion-card-subtitle>Capacity: {{ station.capacity }}</ion-card-subtitle>
     <ion-card-title>{{ station.name }}</ion-card-title>

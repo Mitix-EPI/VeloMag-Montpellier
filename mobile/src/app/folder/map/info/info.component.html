@@ -1,7 +1,7 @@
 <ion-item class="station-info">
   <ion-list-header class="ion-text-center">{{ stationName }}</ion-list-header>
   <ion-thumbnail slot="end" class="ion-margin">
-    <img [src]="'assets/' + getStationName(stationName) + '.jpg'" alt="Image not found"/>
+    <img [src]="'assets/' + getStationName(stationName) + '.jpg'"  alt="Missing image" onerror="this.onerror=null;this.src='assets/missing-station.jpg';"/>
   </ion-thumbnail>
 </ion-item>
 

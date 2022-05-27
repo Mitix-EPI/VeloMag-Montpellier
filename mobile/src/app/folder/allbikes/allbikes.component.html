@@ -41,7 +41,7 @@
     </ion-fab>
     <img
       [src]="'assets/' + getStationName(station.name) + '.jpg'"
-      alt="Image not found"
+      alt="Missing image" onerror="this.onerror=null;this.src='assets/missing-station.jpg';"
     />
     <ion-card-header>
       <ion-card-subtitle>Capacity: {{ station.capacity }}</ion-card-subtitle>
