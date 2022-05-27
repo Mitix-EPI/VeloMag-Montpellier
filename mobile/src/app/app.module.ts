@@ -15,6 +15,7 @@ import { Clipboard } from '@awesome-cordova-plugins/clipboard/ngx';
 import { AppAvailability } from '@awesome-cordova-plugins/app-availability/ngx';
 import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 import { CommonModule } from '@angular/common';
+import { AppUpdate } from '@ionic-native/app-update/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,7 +35,8 @@ import { CommonModule } from '@angular/common';
     StorageService,
     Clipboard,
     AppAvailability,
-    InAppBrowser
+    InAppBrowser,
+    AppUpdate,
   ],
   bootstrap: [AppComponent],
 })
