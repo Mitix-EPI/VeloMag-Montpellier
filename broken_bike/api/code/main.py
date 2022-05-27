@@ -95,7 +95,3 @@ async def login(request: Request):
         return {"code": 401, "message": "Invalid credentials"}
     else:
         return {"code": 200, "message": "Success", "data": res}
-
-
-if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=55555)
