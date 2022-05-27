@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { StorageService } from './storage.service';
 import { Bikes } from '../interface/bikes.interface';
 import { Stations } from '../interface/stations.interface';
-import { environment } from '../../environments/environment';
 import * as informations from 'src/api-test/station_information.json';
 import * as status from 'src/api-test/station_status.json';
 import { Http, HttpResponse } from '@capacitor-community/http';
@@ -18,7 +17,7 @@ export class BikesService {
   public stations: Stations = null;
 
   // To fix the CORS error
-  // private corsAnywhere = 'https://cors-anywhere.herokuapp.com/';
+  private apiUrl = '';
   private informationsBikesUrl =
     'https://montpellier-fr-smoove.klervi.net/gbfs/en/station_status.json';
   private informationsStationUrl =
@@ -99,6 +98,21 @@ export class BikesService {
               resolve(datas);
             });
           });
+        });
+    });
+  }
+
+  async sendReport(body) {
+    return new Promise((resolve, reject) => {
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+      });
+      this.httpClient
+        .post(this.apiUrl + '/add_broken_bike', body, { headers })
+        .subscribe((datas: any) => {
+          resolve(datas);
+        }, (error) => {
+          reject(error);
         });
     });
   }

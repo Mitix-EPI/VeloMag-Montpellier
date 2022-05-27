@@ -14,6 +14,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { Clipboard } from '@awesome-cordova-plugins/clipboard/ngx';
 import { AppAvailability } from '@awesome-cordova-plugins/app-availability/ngx';
 import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +26,7 @@ import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
     IonicStorageModule.forRoot(),
     HttpClientModule,
     Ng2SearchPipeModule,
+    CommonModule,
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
