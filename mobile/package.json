@@ -35,6 +35,8 @@
     "@ionic-native/file": "^5.36.0",
     "@ionic/angular": "^6.0.0",
     "@ionic/storage-angular": "^3.0.6",
+    "@ngx-translate/core": "^14.0.0",
+    "@ngx-translate/http-loader": "^7.0.0",
     "@types/proj4": "^2.5.2",
     "cordova-clipboard": "^1.3.0",
     "cordova-plugin-app-update": "^2.0.2",

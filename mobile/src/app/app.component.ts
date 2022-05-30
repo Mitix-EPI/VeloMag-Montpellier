@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { AppUpdate } from '@ionic-native/app-update/ngx';
 import { Platform } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { filter } from 'rxjs/operators';
 
 @Component({
@@ -26,7 +27,8 @@ export class AppComponent {
   constructor(
     private router: Router,
     private appUpdate: AppUpdate,
-    private platform: Platform
+    private platform: Platform,
+    public translate: TranslateService
   ) {
     router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
@@ -38,6 +40,8 @@ export class AppComponent {
         }
       });
     this.checkUpdate();
+    translate.addLangs(['en', 'fr']);
+    translate.setDefaultLang('fr');
   }
 
   getMaxEdgeStart(): number {
