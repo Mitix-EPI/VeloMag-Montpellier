@@ -36,3 +36,12 @@ jobs:
       if: success()
       run: aws s3 sync ./dist/report-bike s3://velomag
       working-directory: ./broken_bike/web/
+      
+    - name: Create CloudFront Cache Invalidation
+      uses: chetan/invalidate-cloudfront-action@master
+      env:
+        DISTRIBUTION: ${{ secrets.AWS_DISTRIBUTION_ID }}
+        PATHS: "/*"
+        AWS_REGION: "eu-west-3"
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
