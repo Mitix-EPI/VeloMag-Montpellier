@@ -10,11 +10,10 @@ export class AppComponent {
 
   constructor(public translate: TranslateService) {
     translate.addLangs(['en', 'fr']);
-    translate.setDefaultLang('en');
-    translate.use('en');
+    translate.setDefaultLang('fr');
 
-    let browserLang = translate.getBrowserLang() || '';
-    translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
+    let browserLang = translate.getBrowserLang() || 'fr';
+    translate.use(browserLang.match(/en|fr/) ? browserLang : 'fr');
   }
 
 }

@@ -15,5 +15,21 @@
     "Open user menu": "Ouvrir le menu utilisateur",
     "Open main menu": "Ouvrir le menu principal",
     "Home": "Accueil",
-    "About": "À propos"
+    "About": "À propos",
+    "Admin": "Administrateur",
+    "Logout": "Déconnexion",
+    "Guest": "Invité",
+    "Velomag Admin Login": "Connexion Velomag Adminisrateur",
+    "Email address": "Adresse email",
+    "Password": "Mot de passe",
+    "Error: Email or password is incorrect": "Erreur: Email ou mot de passe incorrect",
+    "Sign in": "Se connecter",
+    "Low": "Faible",
+    "Important": "Important",
+    "Urgent": "Urgent",
+    "Brake problem": "Problème de frein",
+    "Gear problem": "Problème de vitesse",
+    "Seat problem": "Problème de selle",
+    "Touch panel not working": "Panneau tactile ne fonctionne pas",
+    "Other": "Autre"
 }

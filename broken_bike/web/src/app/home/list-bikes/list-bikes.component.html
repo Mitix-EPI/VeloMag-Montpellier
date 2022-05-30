@@ -206,19 +206,19 @@
                 *ngIf="i.priority == 'Low'"
                 class="font-semibold inline-block py-1 px-2 uppercase rounded-full text-cyan-600 bg-cyan-200 last:mr-0 mr-1"
               >
-                {{ i.priority }}
+                {{ i.priority | translate }}
               </span>
               <span
                 *ngIf="i.priority == 'Urgent'"
                 class="font-semibold inline-block py-1 px-2 uppercase rounded-full text-red-600 bg-red-200 last:mr-0 mr-1"
               >
-                {{ i.priority }}
+                {{ i.priority | translate }}
               </span>
               <span
                 *ngIf="i.priority == 'Important'"
                 class="font-semibold inline-block py-1 px-2 uppercase rounded-full text-orange-600 bg-orange-200 last:mr-0 mr-1"
               >
-                {{ i.priority }}
+                {{ i.priority | translate }}
               </span>
             </td>
             <td class="px-6 py-4">
@@ -226,31 +226,31 @@
                 *ngIf="i.reason == 'Brake problem'"
                 class="font-semibold inline-block py-1 px-2 uppercase rounded-full text-fuchsia-600 bg-fuchsia-100 last:mr-0 mr-1"
               >
-                {{ i.reason }}
+                {{ i.reason | translate }}
               </span>
               <span
                 *ngIf="i.reason == 'Gear problem'"
                 class="font-semibold inline-block py-1 px-2 uppercase rounded-full text-purple-600 bg-purple-100 last:mr-0 mr-1"
               >
-                {{ i.reason }}
+                {{ i.reason | translate }}
               </span>
               <span
                 *ngIf="i.reason == 'Seat problem'"
                 class="font-semibold inline-block py-1 px-2 uppercase rounded-full text-violet-600 bg-violet-100 last:mr-0 mr-1"
               >
-                {{ i.reason }}
+                {{ i.reason | translate }}
               </span>
               <span
                 *ngIf="i.reason == 'Touch panel not working'"
                 class="font-semibold inline-block py-1 px-2 uppercase rounded-full text-indigo-600 bg-indigo-100 last:mr-0 mr-1"
               >
-                {{ i.reason }}
+                {{ i.reason | translate }}
               </span>
               <span
                 *ngIf="i.reason == 'Other'"
                 class="font-semibold inline-block py-1 px-2 uppercase rounded-full text-pink-600 bg-pink-100 last:mr-0 mr-1"
               >
-                {{ i.reason }}
+                {{ i.reason | translate }}
               </span>
             </td>
             <td class="px-6 py-4">

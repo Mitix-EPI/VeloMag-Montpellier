@@ -15,5 +15,21 @@
     "Open user menu": "Open user menu",
     "Open main menu": "Open main menu",
     "Home": "Home",
-    "About": "About"
+    "About": "About",
+    "Admin": "Admin",
+    "Logout": "Logout",
+    "Guest": "Guest",
+    "Velomag Admin Login": "Velomag Admin Login",
+    "Email address": "Email address",
+    "Password": "Password",
+    "Error: Email or password is incorrect": "Error: Email or password is incorrect",
+    "Sign in": "Sign in",
+    "Low": "Low",
+    "Important": "Important",
+    "Urgent": "Urgent",
+    "Brake problem": "Brake problem",
+    "Gear problem": "Gear problem",
+    "Seat problem": "Seat problem",
+    "Touch panel not working": "Touch panel not working",
+    "Other": "Other"
 }

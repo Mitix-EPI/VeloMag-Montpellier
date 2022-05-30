@@ -30,7 +30,7 @@
             [src]="'assets/avatar-' + (isAdmin ? 'admin' : 'guest') + '.png'"
             [alt]="isAdmin ? 'Admin' : 'Guest' + ' photo'"
           />
-          {{ isAdmin ? "Admin" : "Guest" }}
+          {{ isAdmin ? "Admin" : "Guest"  | translate}}
         </button>
 
         <button
