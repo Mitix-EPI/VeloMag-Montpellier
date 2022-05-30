@@ -17,7 +17,7 @@
         type="button"
         data-dropdown-toggle="dropdown"
       >
-        <span class="sr-only">Open user menu</span>
+        <span class="sr-only">{{'Open user menu' | translate}}</span>
       </button>
       <div class="flex md:order-2">
         <button
@@ -30,7 +30,7 @@
             [src]="'assets/avatar-' + (isAdmin ? 'admin' : 'guest') + '.png'"
             [alt]="isAdmin ? 'Admin' : 'Guest' + ' photo'"
           />
-          {{ isAdmin ? "Admin" : "Guest" }}
+          {{ isAdmin ? "Admin" : "Guest"  | translate}}
         </button>
 
         <button
@@ -40,7 +40,7 @@
           aria-controls="mobile-menu-4"
           aria-expanded="false"
         >
-          <span class="sr-only">Open main menu</span>
+          <span class="sr-only">{{'Open main menu' | translate}}</span>
           <svg
             class="w-6 h-6"
             fill="currentColor"
@@ -85,7 +85,7 @@
                 currentPageRoot === 'home'
             }"
             class="block py-2 pr-4 pl-3 text-white rounded md:bg-transparent md:p-0 dark:text-white"
-            >Home</a
+            >{{'Home' | translate}}</a
           >
         </li>
         <li>
@@ -98,7 +98,7 @@
                 currentPageRoot === 'about'
             }"
             class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-            >About</a
+            >{{'About' | translate}}</a
           >
         </li>
         <li>
