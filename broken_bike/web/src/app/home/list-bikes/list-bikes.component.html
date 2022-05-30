@@ -2,7 +2,7 @@
   <div class="p-6 dark:bg-gray-800">
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
       <div class="p-4">
-        <label for="table-search" class="sr-only">Search</label>
+        <label for="table-search" class="sr-only">{{'Search' | translate}}</label>
         <div class="relative mt-1">
           <div
             class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
@@ -24,7 +24,7 @@
             type="text"
             [(ngModel)]="search"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-80 pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Search for items"
+            placeholder="{{'Search for items...' | translate}}"
           />
         </div>
       </div>
@@ -90,7 +90,7 @@
                     d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
                   />
                 </svg>
-                Priority
+                {{'Priority' | translate}}
               </button>
             </th>
             <th scope="col" class="px-6 py-3">
@@ -114,7 +114,7 @@
                     d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
                   />
                 </svg>
-                Reason
+                {{'Reason' | translate}}
               </button>
             </th>
             <th scope="col" class="px-6 py-3">
@@ -139,7 +139,7 @@
                     d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
                   />
                 </svg>
-                Report Date
+                {{'Report Date' | translate}}
               </button>
             </th>
             <th
@@ -173,7 +173,7 @@
               </button>
             </th>
             <th *ngIf="isAdmin" scope="col" class="px-6 py-3">
-              <span class="sr-only">Delete</span>
+              <span class="sr-only">{{'Delete' | translate}}</span>
             </th>
           </tr>
         </thead>
@@ -269,7 +269,7 @@
             </td>
             <td *ngIf="isAdmin" class="px-6 py-4 text-right">
               <button (click)="deleteBike(i)" type="button" class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
-                Delete
+                {{'Delete' | translate}}
               </button>
             </td>
           </tr>
