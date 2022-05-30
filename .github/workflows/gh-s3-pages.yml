@@ -1,0 +1,49 @@
+name: GitHub S3 Page
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - broken_bike/web/**
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: eu-west-3
+
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 18
+
+    - name: Install dependencies
+      run: npm install
+      working-directory: ./broken_bike/web/
+
+    - name: Build
+      run: npm run build:prod
+      working-directory: ./broken_bike/web/
+
+    - name: Deploy
+      if: success()
+      run: aws s3 sync ./dist/report-bike s3://velomag
+      working-directory: ./broken_bike/web/
+      
+    - name: Create CloudFront Cache Invalidation
+      uses: chetan/invalidate-cloudfront-action@master
+      env:
+        DISTRIBUTION: ${{ secrets.AWS_DISTRIBUTION_ID }}
+        PATHS: "/*"
+        AWS_REGION: "eu-west-3"
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
