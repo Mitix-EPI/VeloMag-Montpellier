@@ -14,6 +14,10 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ReportbikesComponent } from './reportbikes/reportbikes.component';
 import { InfoComponent } from './map/info/info.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { httpTranslateLoader } from '../app.module';
 
 @NgModule({
   imports: [
@@ -23,6 +27,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     Ng2SearchPipeModule,
     ReactiveFormsModule,
     FormsModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: httpTranslateLoader,
+        deps: [HttpClient]
+      }
+    })
   ],
   declarations: [
     FolderPage,

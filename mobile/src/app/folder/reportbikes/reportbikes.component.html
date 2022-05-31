@@ -4,37 +4,37 @@
       <ion-col size="12">
         <ion-card>
           <ion-card-header>
-            <ion-card-title>Form to report bike:</ion-card-title>
+            <ion-card-title>{{ 'Form to report bike' | translate }}:</ion-card-title>
           </ion-card-header>
           <ion-card-content>
             <form [formGroup]="reportBikes" (ngSubmit)="submitForm()">
               <ion-item>
-                <ion-label>Bike id: <span style="color: red">*</span></ion-label>
+                <ion-label>{{ 'Bike id' | translate }}: <span style="color: red">*</span></ion-label>
                 <ion-input formControlName="bike_id" type="number" min="1"></ion-input>
               </ion-item>
               <ion-item>
-                <ion-label position="floating">Priority of the report: <span style="color: red">*</span></ion-label>
+                <ion-label position="floating">{{ 'Priority of the report' | translate }}: <span style="color: red">*</span></ion-label>
                 <ion-select formControlName="priority" interface="popover">
-                  <ion-select-option value="low">Low</ion-select-option>
-                  <ion-select-option value="important">Important</ion-select-option>
-                  <ion-select-option value="urgent">Urgent</ion-select-option>
+                  <ion-select-option value="low">{{ 'Low' | translate }}</ion-select-option>
+                  <ion-select-option value="important">{{ 'Important' | translate }}</ion-select-option>
+                  <ion-select-option value="urgent">{{ 'Urgent' | translate }}</ion-select-option>
                 </ion-select>
               </ion-item>
               <ion-item>
-                <ion-label position="floating">Reason of the report: <span style="color: red">*</span></ion-label>
+                <ion-label position="floating">{{ 'Reason of the report' | translate }}: <span style="color: red">*</span></ion-label>
                 <ion-select formControlName="reason" interface="popover">
-                  <ion-select-option value="brake">Brake problem</ion-select-option>
-                  <ion-select-option value="gear">Gear problem</ion-select-option>
-                  <ion-select-option value="seat">Seat problem</ion-select-option>
-                  <ion-select-option value="panel">Touch panel not working</ion-select-option>
-                  <ion-select-option value="other">Other</ion-select-option>
+                  <ion-select-option value="brake">{{ 'Brake problem' | translate }}</ion-select-option>
+                  <ion-select-option value="gear">{{ 'Gear problem' | translate }}</ion-select-option>
+                  <ion-select-option value="seat">{{ 'Seat problem' | translate }}</ion-select-option>
+                  <ion-select-option value="panel">{{ 'Touch panel not working' | translate }}</ion-select-option>
+                  <ion-select-option value="other">{{ 'Other' | translate }}</ion-select-option>
                 </ion-select>
               </ion-item>
               <ion-item>
-                <ion-label position="floating">Description: <span style="color: red">*</span></ion-label>
-                <ion-textarea formControlName="description" rows="6" cols="20"  placeholder="Write the details of the bike's problem..."></ion-textarea>
+                <ion-label position="floating">{{ 'Description' | translate }}: <span style="color: red">*</span></ion-label>
+                <ion-textarea formControlName="description" rows="6" cols="20"  placeholder="{{ 'Write the details of the bike\'s problem...' | translate }}"></ion-textarea>
               </ion-item>
-              <ion-button type="submit" [disabled]="!reportBikes.valid">Submit</ion-button>
+              <ion-button type="submit" [disabled]="!reportBikes.valid">{{ 'Submit' | translate }}</ion-button>
             </form>
           </ion-card-content>
         </ion-card>
