@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { AppUpdate } from '@ionic-native/app-update/ngx';
-import { Platform } from '@ionic/angular';
+import { Platform, ToastController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { filter } from 'rxjs/operators';
+import ApkUpdater from 'cordova-plugin-apkupdater';
+import { BikesService } from './service/bikes.service';
 
 @Component({
   selector: 'app-root',
@@ -26,9 +27,10 @@ export class AppComponent {
 
   constructor(
     private router: Router,
-    private appUpdate: AppUpdate,
     private platform: Platform,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private bikeService: BikesService,
+    public toastController: ToastController
   ) {
     router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
@@ -52,15 +54,26 @@ export class AppComponent {
     }
   }
 
-  checkUpdate() {
-    this.platform.ready().then(() => {
-      const updateUrl = 'https://github.com/Mitix-EPI/VeloMag-Montpellier/releases/latest/download/update.xml';
-      this.appUpdate
-        .checkAppUpdate(updateUrl)
-        .then((update) => {})
-        .catch((error) => {
-          alert('Error: ' + error.msg);
-        });
-    });
+  async checkUpdate() {
+    if (this.platform.is('cordova')) {
+      this.bikeService.getVersion().then(async (remoteVersion) => {
+        const remoteUrl = 'https://github.com/Mitix-EPI/VeloMag-Montpellier/releases/latest/download/';
+        const apkUrl = remoteUrl + 'VeloMag.apk';
+        const installedVersion = (await ApkUpdater.getInstalledVersion()).version.code;
+        if (remoteVersion > installedVersion) {
+          const toast = await this.toastController.create({
+            message: 'A new version of VeloMag is available. Update in progress...',
+            duration: 5000,
+          });
+          toast.present();
+          await ApkUpdater.download(apkUrl);
+          await ApkUpdater.install();
+        }
+      }, (error) => {
+        console.error(error);
+      });
+    } else {
+      alert('You are not on a mobile device');
+    }
   }
 }
