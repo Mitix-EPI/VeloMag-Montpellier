@@ -21,7 +21,6 @@
     "@angular/router": "~13.3.0",
     "@ngx-translate/http-loader": "^7.0.0",
     "flowbite": "^1.4.7",
-    "flowbite-angular": "^0.0.1",
     "ng2-search-filter": "^0.5.1",
     "ngx-cookie-service": "^13.2.1",
     "rxjs": "~7.5.0",
