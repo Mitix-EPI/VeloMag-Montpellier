@@ -1,10 +1,6 @@
 {
-    "VeloMag is available !": "VeloMag is available !",
-    "The actual simplest application created for Montpellier bikes!": "The actual simplest application created for Montpellier bikes!",
     "Download our app:": "Download our app:",
     "Download .apk from Github": "Download .apk from Github",
-    "What is VeloMag ?": "What is VeloMag ?",
-    "How to install it ?": "How to install it ?",
     "Follow us": "Follow us",
     "Search": "Search",
     "Priority": "Priority",
@@ -31,5 +27,11 @@
     "Gear problem": "Gear problem",
     "Seat problem": "Seat problem",
     "Touch panel not working": "Touch panel not working",
-    "Other": "Other"
+    "Other": "Other",
+    "The simplest app to use Montpellier bikes !": "The simplest app to use Montpellier bikes !",
+    "See in real time the status of the bikes in every bike station": "See in real time the status of the bikes in every bike station",
+    "pin your favorite ones": "pin your favorite ones",
+    "report the broken bikes": "report the broken bikes",
+    "and more !": "and more !",
+    "The app created by users for users": "The app created by users for users"
 }
