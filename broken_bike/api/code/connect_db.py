@@ -5,7 +5,7 @@ class ConnectDB:
         self.config = {
             'user': user,
             'password': password,
-            'host': 'localhost',
+            'host': 'db',
             'database': 'broken_bike'
         }
         self.conn = mysql.connector.connect(**self.config)
