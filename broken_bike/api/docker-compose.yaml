@@ -9,6 +9,9 @@ services:
       - traefik.http.routers.app-http.rule=Host(`api.velomag-mtp.com`)
       - traefik.http.routers.app-http.tls=true
       - traefik.http.routers.app-http.tls.certresolver=letsencrypt
+    environment:
+      - MYSQL_DATABASE=$MYSQL_DATABASE
+      - MYSQL_USER=root
 
   traefik:
     image: traefik:v2.3
