@@ -6,7 +6,7 @@ import { CookieService } from "ngx-cookie-service";
   providedIn: "root",
 })
 export class VelomagService {
-  URL = "http://velomag.chickenkiller.com:55555/";
+  URL = "https://api.velomag-mtp.com/";
   username: string = "";
   password: string = "";
   isAdmin: boolean = false;
@@ -60,7 +60,7 @@ export class VelomagService {
             });
             resolve(res);
           } else {
-            reject(res["message"]);
+            reject(res);
           }
         },
         (err) => {

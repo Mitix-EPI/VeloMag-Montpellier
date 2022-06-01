@@ -28,7 +28,9 @@ export class LoginComponent implements OnInit {
           if (data.code === 200) {
             this.bikesService.saveLogin(this.email, this.password);
             this.error = false;
-            window.location.href = '/';
+            window.location.href = '/home';
+          } else {
+            this.error = true;
           }
         },
         (error) => {
