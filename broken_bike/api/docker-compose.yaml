@@ -34,7 +34,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./db/db.sql:/db.sql
+      - ./db/db.sql:/docker-entrypoint-initdb.d/1.sql
 
 volumes:
   traefik-public-certificates:
