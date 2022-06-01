@@ -42,6 +42,15 @@ export class ListBikesComponent {
   }
 
   deleteBike(bike: any) {
-    this.bikesService.removeBike(bike.id)
+    this.bikesService.removeBike(bike.id).subscribe(
+      (res: any) => {
+        if (res['code'] == 200) {
+          this.bikes = this.bikes.filter(b => b.id !== bike.id);
+        } else {
+          console.error(res);
+          alert(res['message'] || 'Internal error');
+        }
+      }
+    );
   }
 }
