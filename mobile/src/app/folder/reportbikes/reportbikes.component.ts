@@ -37,7 +37,7 @@ export class ReportbikesComponent {
     }, async (error) => {
       console.log(error);
       const toast = await this.toastController.create({
-        message: 'Error while sending your report. If the problem persists, please contact us.',
+        message: 'Error while sending your report. If the problem persists, please contact us. ' + error['message'] || '',
         duration: 5000,
       });
       toast.present();

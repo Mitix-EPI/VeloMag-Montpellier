@@ -18,8 +18,7 @@ export class BikesService {
   public bikes: Bikes = null;
   public stations: Stations = null;
 
-  // To fix the CORS error
-  private apiUrl = '';
+  private apiUrl = 'https://api.velomag-mtp.com';
   private informationsBikesUrl =
     'https://montpellier-fr-smoove.klervi.net/gbfs/en/station_status.json';
   private informationsStationUrl =
@@ -112,7 +111,11 @@ export class BikesService {
       this.httpClient
         .post(this.apiUrl + '/add_broken_bike', body, { headers })
         .subscribe((datas: any) => {
-          resolve(datas);
+          if (datas.code === 200) {
+            resolve(datas);
+          } else {
+            reject(datas);
+          }
         }, (error) => {
           reject(error);
         });
