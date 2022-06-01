@@ -3,9 +3,9 @@ name: GitHub S3 Page
 on:
   push:
     branches:
-      - main
+      - 'main'
     paths:
-      - broken_bike/web/**
+      - 'broken_bike/web/**/*'
 
 jobs:
   deploy:
