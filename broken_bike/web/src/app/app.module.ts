@@ -10,7 +10,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { ListBikesComponent } from './home/list-bikes/list-bikes.component';
 import { HomeComponent } from './home/home.component';
-import { ContactComponent } from './contact/contact.component';
 import { AboutComponent } from './about/about.component';
 import { VelomagService } from './services/velomag.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -26,7 +25,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
     HeaderComponent,
     ListBikesComponent,
     HomeComponent,
-    ContactComponent,
     AboutComponent,
     LoginComponent
   ],
