@@ -17,6 +17,7 @@ import { LoginComponent } from './login/login.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { PrivacyComponent } from './privacy/privacy.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
     ListBikesComponent,
     HomeComponent,
     AboutComponent,
-    LoginComponent
+    LoginComponent,
+    PrivacyComponent
   ],
   imports: [
     BrowserModule,
