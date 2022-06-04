@@ -3,7 +3,6 @@ import { NavigationEnd, Router } from '@angular/router';
 import { Platform, ToastController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { filter } from 'rxjs/operators';
-import ApkUpdater from 'cordova-plugin-apkupdater';
 import { BikesService } from './service/bikes.service';
 
 @Component({
@@ -55,7 +54,7 @@ export class AppComponent {
   }
 
   async checkUpdate() {
-    if (this.platform.is('cordova')) {
+    /*if (this.platform.is('cordova')) {
       this.bikeService.getVersion().then(async (remoteVersion) => {
         const remoteUrl = 'https://github.com/Mitix-EPI/VeloMag-Montpellier/releases/latest/download/';
         const apkUrl = remoteUrl + 'VeloMag.apk';
@@ -74,6 +73,6 @@ export class AppComponent {
       });
     } else {
       alert('You are not on a mobile device');
-    }
+    }*/
   }
 }
