@@ -40,7 +40,6 @@ export class AppComponent {
           console.error('Unknown event type: ' + event);
         }
       });
-    this.checkUpdate();
     translate.addLangs(['en', 'fr']);
     translate.setDefaultLang('fr');
   }
@@ -51,28 +50,5 @@ export class AppComponent {
     } else {
       return 10000;
     }
-  }
-
-  async checkUpdate() {
-    /*if (this.platform.is('cordova')) {
-      this.bikeService.getVersion().then(async (remoteVersion) => {
-        const remoteUrl = 'https://github.com/Mitix-EPI/VeloMag-Montpellier/releases/latest/download/';
-        const apkUrl = remoteUrl + 'VeloMag.apk';
-        const installedVersion = (await ApkUpdater.getInstalledVersion()).version.code;
-        if (remoteVersion > installedVersion) {
-          const toast = await this.toastController.create({
-            message: 'A new version of VeloMag is available. Update in progress...',
-            duration: 5000,
-          });
-          toast.present();
-          await ApkUpdater.download(apkUrl);
-          await ApkUpdater.install();
-        }
-      }, (error) => {
-        console.error(error);
-      });
-    } else {
-      alert('You are not on a mobile device');
-    }*/
   }
 }
