@@ -25,18 +25,24 @@ class ConnectDB:
         finally:
             logging.info('Connection opened successfully.')
 
-    def execute(self, query):
+    def execute(self, query, data=None):
         """Execute SQL query."""
         try:
             self.open_connection()
             with self.conn.cursor() as cur:
                 if 'SELECT' in query:
-                    cur.execute(query)
+                    if data is None:
+                        cur.execute(query)
+                    else:
+                        cur.execute(query, data)
                     result = cur.fetchall()
                     cur.close()
                     return result
                 else:
-                    result = cur.execute(query)
+                    if data is None:
+                        result = cur.execute(query)
+                    else:
+                        result = cur.execute(query, data)
                     self.conn.commit()
                     affected = f"{cur.rowcount} rows affected."
                     cur.close()
