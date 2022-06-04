@@ -4,7 +4,7 @@ const config: CapacitorConfig = {
   appId: 'io.ionic.velomag',
   appName: 'VeloMag',
   webDir: 'www',
-  bundledWebRuntime: false
+  bundledWebRuntime: false,
 };
 
 export default config;

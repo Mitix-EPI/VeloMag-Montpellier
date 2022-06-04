@@ -15,7 +15,6 @@ import { Clipboard } from '@awesome-cordova-plugins/clipboard/ngx';
 import { AppAvailability } from '@awesome-cordova-plugins/app-availability/ngx';
 import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 import { CommonModule } from '@angular/common';
-import { AppUpdate } from '@ionic-native/app-update/ngx';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
@@ -34,9 +33,9 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
       loader: {
         provide: TranslateLoader,
         useFactory: httpTranslateLoader,
-        deps: [HttpClient]
-      }
-    })
+        deps: [HttpClient],
+      },
+    }),
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
@@ -45,7 +44,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
     Clipboard,
     AppAvailability,
     InAppBrowser,
-    AppUpdate,
   ],
   bootstrap: [AppComponent],
 })
