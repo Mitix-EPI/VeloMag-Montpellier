@@ -10,12 +10,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { ListBikesComponent } from './home/list-bikes/list-bikes.component';
 import { HomeComponent } from './home/home.component';
-import { ContactComponent } from './contact/contact.component';
 import { AboutComponent } from './about/about.component';
 import { VelomagService } from './services/velomag.service';
 import { CookieService } from 'ngx-cookie-service';
 import { LoginComponent } from './login/login.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { PrivacyComponent } from './privacy/privacy.component';
 
 @NgModule({
   declarations: [
@@ -24,9 +26,9 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderComponent,
     ListBikesComponent,
     HomeComponent,
-    ContactComponent,
     AboutComponent,
-    LoginComponent
+    LoginComponent,
+    PrivacyComponent
   ],
   imports: [
     BrowserModule,
@@ -34,9 +36,20 @@ import { HttpClientModule } from '@angular/common/http';
     Ng2SearchPipeModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: httpTranslateLoader,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [DatePipe, VelomagService, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+export function httpTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

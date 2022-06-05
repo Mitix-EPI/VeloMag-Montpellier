@@ -11,6 +11,7 @@ export class HeaderComponent implements OnInit {
 
   @Input() isAdmin = false;
   currentPageRoot = 'home';
+  collapser: any;
 
   constructor(private bikesService: VelomagService, private router: Router) {
     this.currentPageRoot = window.location.pathname.split('/')[1];

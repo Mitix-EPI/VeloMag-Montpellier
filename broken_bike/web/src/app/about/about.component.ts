@@ -8,10 +8,10 @@ import { VelomagService } from '../services/velomag.service';
 })
 export class AboutComponent {
 
-  isAdmin = false;
+  constructor() { }
 
-  constructor(private bikesService: VelomagService) {
-    this.isAdmin = this.bikesService.isAdmin
+  downloadApp() {
+    window.open('https://github.com/Mitix-EPI/VeloMag-Montpellier/releases/latest/download/VeloMag.apk', '_blank');
   }
 
 }

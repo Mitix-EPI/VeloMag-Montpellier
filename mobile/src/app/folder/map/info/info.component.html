@@ -1,24 +1,24 @@
 <ion-item class="station-info">
   <ion-list-header class="ion-text-center">{{ stationName }}</ion-list-header>
   <ion-thumbnail slot="end" class="ion-margin">
-    <img [src]="'assets/' + getStationName(stationName) + '.jpg'" alt="Image not found"/>
+    <img [src]="'assets/' + getStationName(stationName) + '.jpg'"  alt="Missing image" onerror="this.onerror=null;this.src='assets/missing-station.jpg';"/>
   </ion-thumbnail>
 </ion-item>
 
 <ion-item shape="round">
   <ion-icon slot="start" name="bicycle-outline"></ion-icon>
-  <ion-label>Bikes available</ion-label>
+  <ion-label>{{ 'Bikes available' | translate }}</ion-label>
   <ion-badge slot="end" [color]="getColor(stationBikes, stationCapacity)">{{ stationBikes }}</ion-badge>
 </ion-item>
 
 <ion-item shape="round">
   <ion-icon slot="start" name="contract-outline"></ion-icon>
-  <ion-label>Slots available</ion-label>
+  <ion-label>{{ 'Slots available' | translate }}</ion-label>
   <ion-badge slot="end" [color]="getColor(stationSlots, stationCapacity)">{{ stationSlots }}</ion-badge>
 </ion-item>
 
 <!-- Button -->
 <ion-button (click)="presentActionSheet()" class="ion-margin" expand="block">
   <ion-icon name="walk-outline"></ion-icon>
-  Path to station
+  {{ 'Path to station' | translate }}
 </ion-button>

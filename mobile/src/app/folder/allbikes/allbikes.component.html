@@ -18,7 +18,7 @@
       <ion-col size="12">
         <ion-card>
           <ion-card-header>
-            <ion-card-title>Loading</ion-card-title>
+            <ion-card-title>{{ 'Loading...' | translate }}</ion-card-title>
           </ion-card-header>
           <ion-card-content>
             <ion-spinner name="crescent" *ngIf="!loaded"></ion-spinner>
@@ -41,10 +41,10 @@
     </ion-fab>
     <img
       [src]="'assets/' + getStationName(station.name) + '.jpg'"
-      alt="Image not found"
+      alt="Missing image" onerror="this.onerror=null;this.src='assets/missing-station.jpg';"
     />
     <ion-card-header>
-      <ion-card-subtitle>Capacity: {{ station.capacity }}</ion-card-subtitle>
+      <ion-card-subtitle>{{ 'Capacity' | translate }}: {{ station.capacity }}</ion-card-subtitle>
       <ion-card-title>
         {{ station.name }}
       </ion-card-title>
@@ -52,7 +52,7 @@
     <ion-card-content>
       <ion-item shape="round">
         <ion-icon slot="start" name="bicycle-outline"></ion-icon>
-        <ion-label>Bikes available</ion-label>
+        <ion-label>{{ 'Bikes available' | translate }}</ion-label>
         <ion-badge
           slot="end"
           [color]="getColor(station.bikes, station.capacity)"
@@ -62,7 +62,7 @@
 
       <ion-item shape="round">
         <ion-icon slot="start" name="contract-outline"></ion-icon>
-        <ion-label>Slots available</ion-label>
+        <ion-label>{{ 'Slots available' | translate }}</ion-label>
         <ion-badge
           slot="end"
           [color]="getColor(station.slots, station.capacity)"
@@ -78,7 +78,7 @@
         (click)="redirectToStation(station.coords)"
       >
         <ion-icon name="pin-outline"></ion-icon>
-        <ion-label class="padding-label">Pin to map</ion-label>
+        <ion-label class="padding-label">{{ 'Pin to map' | translate }}</ion-label>
       </ion-button>
     </ion-footer>
   </ion-card>

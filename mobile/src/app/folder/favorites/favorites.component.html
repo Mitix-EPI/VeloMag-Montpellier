@@ -5,7 +5,7 @@
       <ion-col size="12">
         <ion-card>
           <ion-card-header>
-            <ion-card-title>Loading</ion-card-title>
+            <ion-card-title>{{ 'Loading...' | translate }}</ion-card-title>
           </ion-card-header>
           <ion-card-content>
             <ion-spinner name="crescent" *ngIf="!loaded"></ion-spinner>
@@ -23,12 +23,12 @@
         <ion-card>
           <ion-card-header>
             
-            <ion-card-title>No stations found</ion-card-title>
+            <ion-card-title>{{ 'No stations found' | translate }}</ion-card-title>
           </ion-card-header>
           <ion-card-content>
             <ion-item>
               <ion-icon slot="start" class="no-favorite" name="sad-outline"></ion-icon>
-              <ion-label>Pin your favorite stations !</ion-label>
+              <ion-label>{{ 'Pin your favorite stations !' | translate }}</ion-label>
             </ion-item>
           </ion-card-content>
         </ion-card>
@@ -44,21 +44,21 @@
       <ion-icon [ngClass]="{'red-heart': station.favorite}" [name]="station.favorite ? 'heart-sharp' : 'heart-outline'"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-  <img [src]="'assets/' + getStationName(station.name) + '.jpg'" alt="Image not found"/>
+  <img [src]="'assets/' + getStationName(station.name) + '.jpg'" alt="Missing image" onerror="this.onerror=null;this.src='assets/missing-station.jpg';"/>
   <ion-card-header>
-    <ion-card-subtitle>Capacity: {{ station.capacity }}</ion-card-subtitle>
+    <ion-card-subtitle>{{ 'Capacity' | translate }}: {{ station.capacity }}</ion-card-subtitle>
     <ion-card-title>{{ station.name }}</ion-card-title>
   </ion-card-header>
   <ion-card-content>
     <ion-item shape="round">
       <ion-icon slot="start" name="bicycle-outline"></ion-icon>
-      <ion-label>Bikes available</ion-label>
+      <ion-label>{{ 'Bikes available' | translate }}</ion-label>
       <ion-badge slot="end" [color]="getColor(station.bikes, station.capacity)">{{ station.bikes }}</ion-badge>
     </ion-item>
   
     <ion-item shape="round">
       <ion-icon slot="start" name="contract-outline"></ion-icon>
-      <ion-label>Slots available</ion-label>
+      <ion-label>{{ 'Slots available' | translate }}</ion-label>
       <ion-badge slot="end" [color]="getColor(station.slots, station.capacity)">{{ station.slots }}</ion-badge>
     </ion-item>
   </ion-card-content>
@@ -70,7 +70,7 @@
       (click)="redirectToStation(station.coords)"
     >
       <ion-icon name="pin-outline"></ion-icon>
-      <ion-label class="padding-label">Pin to map</ion-label>
+      <ion-label class="padding-label">{{ 'Pin to map' | translate }}</ion-label>
     </ion-button>
   </ion-footer>
 </ion-card>

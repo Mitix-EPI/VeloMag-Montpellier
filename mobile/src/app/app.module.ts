@@ -9,11 +9,15 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { StorageService } from './service/storage.service';
 import { BikesService } from './service/bikes.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { Clipboard } from '@awesome-cordova-plugins/clipboard/ngx';
 import { AppAvailability } from '@awesome-cordova-plugins/app-availability/ngx';
 import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
+import { CommonModule } from '@angular/common';
+import { AppUpdate } from '@ionic-native/app-update/ngx';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +29,14 @@ import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
     IonicStorageModule.forRoot(),
     HttpClientModule,
     Ng2SearchPipeModule,
+    CommonModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: httpTranslateLoader,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
@@ -32,8 +44,13 @@ import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
     StorageService,
     Clipboard,
     AppAvailability,
-    InAppBrowser
+    InAppBrowser,
+    AppUpdate,
   ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+
+export function httpTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

@@ -14,7 +14,7 @@
         </div>
         <div class="md:w-8/12 lg:w-5/12 lg:ml-20">
             <h2 class="text-2xl p-5 font-semibold text-center text-gray-800">
-                Velomag Admin Login
+                {{ 'Velomag Admin Login' | translate }}
             </h2>
           <form>
             <!-- Email input -->
@@ -22,7 +22,7 @@
               <input
                 type="text"
                 class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                placeholder="Email address"
+                placeholder="{{ 'Email address' | translate }}"
                 name="email"
                 [(ngModel)]="email"
                 required
@@ -34,7 +34,7 @@
               <input
                 type="password"
                 class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                placeholder="Password"
+                placeholder="{{ 'Password' | translate }}"
                 name="password"
                 [(ngModel)]="password"
                 required
@@ -43,7 +43,7 @@
 
             <!-- Error message -->
             <div class="text-red-500 text-xs italic mb-4" *ngIf="error">
-              Error: Email or password is incorrect
+              {{ "Error: Email or password is incorrect" | translate }}
             </div>
   
             <!-- Submit button -->
@@ -54,7 +54,7 @@
               data-mdb-ripple-color="light"
                 (click)="login()"
             >
-              Sign in
+              {{ "Sign in" | translate }}
             </button>
           </form>
         </div>

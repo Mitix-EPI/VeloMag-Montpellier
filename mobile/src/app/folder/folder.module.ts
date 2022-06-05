@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -14,14 +13,27 @@ import { MapComponent } from './map/map.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ReportbikesComponent } from './reportbikes/reportbikes.component';
 import { InfoComponent } from './map/info/info.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { httpTranslateLoader } from '../app.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
     IonicModule,
     FolderPageRoutingModule,
     Ng2SearchPipeModule,
+    ReactiveFormsModule,
+    FormsModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: httpTranslateLoader,
+        deps: [HttpClient]
+      }
+    })
   ],
   declarations: [
     FolderPage,
