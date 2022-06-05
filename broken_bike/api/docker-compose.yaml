@@ -12,6 +12,8 @@ services:
     environment:
       - DB_PASSWORD=$DB_PASSWORD
       - DB_USER=root
+    volumes:
+      - ../../collect_data/data:/app/app/data
 
   traefik:
     image: traefik:v2.3
