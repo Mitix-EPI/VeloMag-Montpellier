@@ -2,11 +2,10 @@
 
 import logging
 import os
-import sys
 import time
 import traceback
 import threading
-from collect_data import collect_data
+from collect_data.collect_data import collect_data
 
 def every(delay, task):
     next_time = time.time() + delay
@@ -18,12 +17,9 @@ def every(delay, task):
             traceback.print_exc()
         next_time += (time.time() - next_time) // delay * delay + delay
 
-
-def main():
-    hour = 3600
-    threading.Thread(target=lambda: every(hour, collect_data)).start()
-
-
-if __name__ == "__main__":
+def launch_collect_data():
+    forty_minutes = 2400
     logging.basicConfig(level=logging.INFO)
-    main()
+    if not os.path.exists("collect_data/data"):
+        os.mkdir("data")
+    threading.Thread(target=lambda: every(forty_minutes, collect_data)).start()

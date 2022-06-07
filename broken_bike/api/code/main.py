@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 
+import json
 from connect_db import ConnectDB
 import os
-import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from db_requests import Bikes, User
+from collect_data.main_collect_data import launch_collect_data
 
 priorityEnum = ['low', 'important', 'urgent']
 reasonEnum = ['brake problem', 'gear problem', 'seat problem', 'touch panel not working', 'other']
@@ -17,6 +18,7 @@ db = ConnectDB(USER, PASSWORD)
 bikes = Bikes(db)
 user = User(db)
 app = FastAPI()
+launch_collect_data()
 
 app.add_middleware(
     CORSMiddleware,
@@ -29,6 +31,16 @@ app.add_middleware(
 @app.get("/")
 async def root():
     return {"code": 200, "message": "Hello World"}
+
+@app.get("/collect_data")
+async def root():
+    if os.path.exists("collect_data/data/mean_general.json"):
+        f = open("collect_data/data/mean_general.json", "r")
+        res = json.loads(f.read())
+        f.close()
+        return { "code": 200, "message": "OK", "data": res }
+    else:
+        return { "code": 404, "message": "Not found" }
 
 @app.get("/get_bikes")
 async def get_bikes():
