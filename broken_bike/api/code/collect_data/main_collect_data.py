@@ -18,8 +18,9 @@ def every(delay, task):
         next_time += (time.time() - next_time) // delay * delay + delay
 
 def launch_collect_data():
-    forty_minutes = 2400
+    print("launching")
+    forty_minutes = 40
     logging.basicConfig(level=logging.INFO)
     if not os.path.exists("collect_data/data"):
-        os.mkdir("data")
+        os.mkdir("collect_data/data")
     threading.Thread(target=lambda: every(forty_minutes, collect_data)).start()
