@@ -7,8 +7,7 @@ class Bikes:
 
     def get_bikes(self):
         try:
-            self.db.cursor.execute("SELECT * FROM bikes")
-            return self.db.cursor.fetchall()
+            return self.db.execute("SELECT * FROM bikes")
         except Exception as e:
             print(str(e))
             return None
@@ -16,9 +15,7 @@ class Bikes:
     def add_broken_bike(self, bike_id: int, priority: str, reason: str, description: str) -> None:
         date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         try:
-            self.db.cursor.execute("INSERT INTO bikes (id_bike, priority, reason, description, created_at) VALUES (%s, %s, %s, %s, %s)", (
-                bike_id, priority, reason, description, date))
-            self.db.conn.commit()
+            self.db.execute(f"INSERT INTO bikes (id_bike, priority, reason, description, created_at) VALUES ({bike_id}, '{priority}', '{reason}', '{description}', '{date}')")
             return True
         except Exception as e:
             print(str(e))
@@ -26,9 +23,7 @@ class Bikes:
 
     def remove_bike(self, bike_id: int):
         try:
-            self.db.cursor.execute(
-                "DELETE FROM bikes WHERE id = %s", (str(bike_id),))
-            self.db.conn.commit()
+            self.db.execute(f"DELETE FROM bikes WHERE id = '{bike_id}'")
             return True
         except Exception as e:
             print(str(e))
@@ -41,10 +36,8 @@ class User:
 
     def connect(self, username, password):
         try:
-            self.db.cursor.execute(
-                "SELECT * FROM admin WHERE email = %s AND password = %s", (username, password))
-            self.db.fetchone()
-            if self.db.cursor.rowcount == 1:
+            result = self.db.execute(f"SELECT * FROM admin WHERE email = '{username}' AND password = '{password}'")
+            if len(result) > 0:
                 return True
             else:
                 return False

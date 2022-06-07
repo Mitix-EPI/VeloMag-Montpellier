@@ -28,14 +28,10 @@ app.add_middleware(
 
 @app.get("/")
 async def root():
-    if db.conn is None:
-        return {"code": 500, "message": "Database connection failed"}
     return {"code": 200, "message": "Hello World"}
 
 @app.get("/get_bikes")
 async def get_bikes():
-    if db.conn is None:
-        return {"code": 500, "message": "Database connection failed"}
     res = bikes.get_bikes()
     if res is None:
         return {"code": 500, "message": "Database query failed"}
@@ -47,8 +43,6 @@ async def remove_bike(bike_id: int, request: Request):
     body = await request.json()
     username = body['username']
     password = body['password']
-    if db.conn is None:
-        return {"code": 500, "message": "Database connection failed"}
     res = user.connect(username, password)
     if res is None:
         return {"code": 500, "message": "Database query failed"}
@@ -69,8 +63,6 @@ async def add_broken_bike(request: Request):
     priority = body['priority']
     reason = body['reason']
     description = body['description']
-    if db.conn is None:
-        return {"code": 500, "message": "Database connection failed"}
     if priority not in priorityEnum:
         return {"code": 400, "message": "Priority must be one of the following: " + str(priorityEnum)}
     if reason not in reasonEnum:
@@ -86,8 +78,6 @@ async def login(request: Request):
     body = await request.json()
     username = body['username']
     password = body['password']
-    if db.conn is None:
-        return {"code": 500, "message": "Database connection failed"}
     res = user.connect(username, password)
     if res is None:
         return {"code": 500, "message": "Database query failed"}
@@ -95,7 +85,3 @@ async def login(request: Request):
         return {"code": 401, "message": "Invalid credentials"}
     else:
         return {"code": 200, "message": "Success", "data": res}
-
-
-if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=55555)

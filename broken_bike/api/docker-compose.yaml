@@ -1,0 +1,41 @@
+version: "3"
+
+services:
+  api:
+    build: ./code/
+    restart: always
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.app-http.rule=Host(`api.velomag-mtp.com`)
+      - traefik.http.routers.app-http.tls=true
+      - traefik.http.routers.app-http.tls.certresolver=letsencrypt
+    environment:
+      - DB_PASSWORD=$DB_PASSWORD
+      - DB_USER=root
+
+  traefik:
+    image: traefik:v2.3
+    ports:
+      - 80:80
+      - 443:443
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - $PWD/traefik/traefik.toml:/etc/traefik/traefik.toml
+      - traefik-public-certificates:/certificates
+
+  db:
+    container_name: db
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
+      MYSQL_DATABASE: "broken_bike"
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db/db.sql:/docker-entrypoint-initdb.d/1.sql
+      - ./data/db:/var/lib/mysql
+
+volumes:
+  traefik-public-certificates:
