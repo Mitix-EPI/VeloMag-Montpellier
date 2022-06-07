@@ -10,8 +10,12 @@ export class AboutComponent {
 
   constructor() { }
 
-  downloadApp() {
-    window.open('https://github.com/Mitix-EPI/VeloMag-Montpellier/releases/latest/download/VeloMag.apk', '_blank');
+  downloadPlayStore() {
+    window.open('https://play.google.com/store/apps/details?id=io.ionic.velomag', '_blank');
+  }
+
+  downloadAppStore() {
+    window.open('https://apps.apple.com/us/app/velomag/id1628297884', '_blank');
   }
 
 }
