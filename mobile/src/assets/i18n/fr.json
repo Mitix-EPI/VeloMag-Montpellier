@@ -29,5 +29,9 @@
     "Submit": "Envoyer",
     "Write the details of the bike's problem...": "Écrivez les détails du problème du vélo...",
     "All Bikes": "Tous les vélos",
-    "Bike Report": "Signalement de vélo"
+    "Bike Report": "Signalement de vélo",
+    "Please enable your GPS": "Veuillez activer votre GPS",
+    "Mail copied !": "Mail copié !",
+    "Your report has been sent. Thank you!": "Votre signalement a été envoyé. Merci !",
+    "Error while sending your report. If the problem persists, please contact us. ": "Erreur lors de l'envoi de votre signalement. Si le problème persiste, veuillez nous contacter. "
 }

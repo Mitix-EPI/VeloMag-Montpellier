@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { BikesService } from 'src/app/service/bikes.service';
 
 @Component({
@@ -14,7 +15,8 @@ export class ReportbikesComponent {
   constructor(
     public formBuilder: FormBuilder,
     public toastController: ToastController,
-    private bikeService: BikesService
+    private bikeService: BikesService,
+    private translate: TranslateService
   ) {
     this.reportBikes = this.formBuilder.group({
       bike_id: ['', Validators.required],
@@ -30,14 +32,14 @@ export class ReportbikesComponent {
     .then(async () => {
       this.reportBikes.reset();
       const toast = await this.toastController.create({
-        message: 'Your report has been sent. Thank you!',
+        message: this.translate.instant('Your report has been sent. Thank you!'),
         duration: 2000,
       });
       toast.present();
     }, async (error) => {
       console.log(error);
       const toast = await this.toastController.create({
-        message: 'Error while sending your report. If the problem persists, please contact us. ' + error['message'] || '',
+        message: this.translate.instant('Error while sending your report. If the problem persists, please contact us. ') + error['message'] || '',
         duration: 5000,
       });
       toast.present();

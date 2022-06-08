@@ -29,5 +29,9 @@
     "Submit": "Submit",
     "Write the details of the bike's problem...": "Write the details of the bike's problem...",
     "All Bikes": "All Bikes",
-    "Bike Report": "Bike Report"
+    "Bike Report": "Bike Report",
+    "Please enable your GPS": "Please enable your GPS",
+    "Mail copied !": "Mail copied !",
+    "Your report has been sent. Thank you!": "Your report has been sent. Thank you!",
+    "Error while sending your report. If the problem persists, please contact us. ": "Error while sending your report. If the problem persists, please contact us. "
 }

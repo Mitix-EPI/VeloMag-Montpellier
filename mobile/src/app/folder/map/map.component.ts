@@ -24,6 +24,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import TileJSON from 'ol/source/TileJSON';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import { ToastController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-map',
@@ -63,7 +64,8 @@ export class MapComponent implements OnInit, AfterViewInit {
     private router: Router,
     private changeDetectorRef: ChangeDetectorRef,
     private geolocation: Geolocation,
-    public toastController: ToastController
+    public toastController: ToastController,
+    private translate: TranslateService
   ) {
     this.activatedRoute.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
@@ -363,7 +365,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     }, async (error) => {
       console.log('Error getting location', error);
       const toast = await this.toastController.create({
-        message: 'Please enable your GPS',
+        message: this.translate.instant('Please enable your GPS'),
         duration: 2000
       });
       toast.present();
