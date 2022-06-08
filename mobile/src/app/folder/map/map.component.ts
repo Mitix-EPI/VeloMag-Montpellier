@@ -301,9 +301,6 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   getIconName(isFavorite: boolean, bikes: number, slots: number, capacity: number): string {
     let res = 'assets/marker';
-    if (isFavorite) {
-      res += '-favorite';
-    }
     if (this.bikesPriority) {
       if (bikes > capacity / 2) {
         res += '-green';
@@ -320,6 +317,9 @@ export class MapComponent implements OnInit, AfterViewInit {
       } else {
         res += '-red';
       }
+    }
+    if (isFavorite) {
+      res += '-favorite';
     }
     res += '.png';
     return res;
