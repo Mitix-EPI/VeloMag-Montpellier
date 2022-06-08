@@ -62,11 +62,12 @@ def append_data_to_csv(stations: List[Station], output_path: str) -> pd.DataFram
     return df
 
 
-def update_mean(df: pd.DataFrame, output_path: str) -> pd.DataFrame:
+def update_mean(input_path: str, output_path: str) -> pd.DataFrame:
     """
     Update the mean of the data.
     """
     logging.info("Updating mean...")
+    df = pd.read_csv(input_path, index_col=0)
     res = {
         "stations": [],
     }
@@ -74,12 +75,16 @@ def update_mean(df: pd.DataFrame, output_path: str) -> pd.DataFrame:
     for name in names:
         df_name = df[df["name"] == name]
         mean = df_name.mean(numeric_only=True)
-        res["stations"].append({
-            "name": name,
-            "bikes": mean["bikes"],
-            "slots": mean["slots"],
-            "capacity": mean["capacity"],
-        })
+        try:
+            res["stations"].append({
+                "name": name,
+                "bikes": mean["bikes"],
+                "slots": mean["slots"],
+                "capacity": mean["capacity"],
+            })
+        except Exception as e:
+            logging.error("Error while getting mean data: %s", e)
+            continue
     # Write the mean to a CSV file
     f = open(output_path, "w")
     f.write(json.dumps(res, sort_keys=True, ensure_ascii=False))
@@ -127,8 +132,10 @@ def collect_data():
     logging.info("Hour: %s", hour)
     output_path = os.path.join(
         "collect_data/data", "data_" + str(hour) + ".csv")
-    df = append_data_to_csv(stations, output_path)
+    append_data_to_csv(stations, output_path)
+    input_path = os.path.join(
+        "collect_data/data", "data_" + str(hour) + ".csv")
     output_path = os.path.join(
         "collect_data/data", "mean_" + str(hour) + ".json")
-    update_mean(df, output_path)
+    update_mean(input_path, output_path)
     update_general_mean()
