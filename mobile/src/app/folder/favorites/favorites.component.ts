@@ -65,6 +65,7 @@ export class FavoritesComponent implements OnInit {
 
   toggleFavorite(id: number) {
     this.storage.get('favoriteStations').then(favoriteStations => {
+      let selectedStation = null;
       this.stations.forEach((station: any) => {
         if (station.id === id) {
           const isFavorite = favoriteStations.indexOf(id) !== -1;
@@ -74,10 +75,11 @@ export class FavoritesComponent implements OnInit {
             favoriteStations.push(id);
           }
           station.favorite = station.favorite === 0 ? 1 : 0;
+          selectedStation = station;
         }
-        this.stations.splice(this.stations.indexOf(station), 1);
-        this.storage.set('favoriteStations', favoriteStations);
       });
+      this.stations.splice(this.stations.indexOf(selectedStation), 1);
+      this.storage.set('favoriteStations', favoriteStations);
     });
   }
 
