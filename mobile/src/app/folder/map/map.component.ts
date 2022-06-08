@@ -337,9 +337,22 @@ export class MapComponent implements OnInit, AfterViewInit {
       const layer = new VectorLayer({
         className: 'geolocation',
         source: new VectorSource({features: [pointFeature]}),
+        style: new Style({
+          image: new CircleStyle({
+            radius: 8,
+            fill: new Fill({
+              color: '#fff',
+            }),
+            stroke: new Stroke({
+              color: '#000',
+              width: 2,
+            }),
+          }),
+        }),
       });
       this.map.addLayer(layer);
-      this.view.animate({ zoom: 17 }, { center: [resp.coords.longitude, resp.coords.latitude] });
+      this.view.setCenter([resp.coords.longitude, resp.coords.latitude]);
+      this.view.setZoom(17);
       const watch = this.geolocation.watchPosition();
       watch.subscribe({
         next: (data: any) => {
