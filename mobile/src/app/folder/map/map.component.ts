@@ -39,6 +39,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   bikesPriority = true; // Bikes priority or Slots priority
   informations = null;
   locationPoint = new Point([0, 0]); // Location point (hidden by default)
+  source = null;
 
   earthquakeFill = new Fill({
     color: 'rgba(255, 153, 0, 0.8)',
@@ -154,7 +155,9 @@ export class MapComponent implements OnInit, AfterViewInit {
     // https://viglino.github.io/ol-ext/examples/style/map.style.font.html
     const stations = informations.data.stations;
     const bikes = this.bikesService.getBikes().data.stations;
-    const source = new VectorSource();
+    if (this.source)
+      this.source.clear();
+    this.source = new VectorSource();
     stations.forEach((station: any) => {
       const coordinates = [station.lon, station.lat];
       const feature = new Feature(new Point(coordinates));
@@ -169,7 +172,7 @@ export class MapComponent implements OnInit, AfterViewInit {
           slots: bikeStation.num_docks_available,
           capacity: station.capacity,
         });
-        source.addFeatures([feature]);
+        this.source.addFeatures([feature]);
       }
     });
 
@@ -211,7 +214,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     const clusterSource = new Cluster({
       distance: 40,
       minDistance: 26,
-      source,
+      "source": this.source,
     });
     const clusters = new VectorLayer({
       source: clusterSource,
