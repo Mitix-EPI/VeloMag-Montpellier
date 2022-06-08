@@ -57,7 +57,7 @@ const ANDROID_ICONS = [
   { source: 'drawable-xxxhdpi-icon.png', target: 'mipmap-xxxhdpi/ic_launcher_foreground.png' }
 ];
 const ANDROID_SPLASHES = [
-  { source: 'drawable-land-mdpi-screen.png', target: 'drawable/splash.png' }, 
+  { source: 'drawable-land-mdpi-screen.png', target: 'drawable/splash.png' },
   { source: 'drawable-land-mdpi-screen.png', target: 'drawable-land-mdpi/splash.png' },
   { source: 'drawable-land-hdpi-screen.png', target: 'drawable-land-hdpi/splash.png' },
   { source: 'drawable-land-xhdpi-screen.png', target: 'drawable-land-xhdpi/splash.png' },
@@ -83,3 +83,6 @@ function copyImages(sourcePath, targetPath, images) {
 
 copyImages(SOURCE_IOS_ICON, TARGET_IOS_ICON, IOS_ICONS);
 copyImages(SOURCE_IOS_SPLASH, TARGET_IOS_SPLASH, IOS_SPLASHES);
+
+copyImages(SOURCE_ANDROID_ICON, TARGET_ANDROID_ICON, ANDROID_ICONS);
+copyImages(SOURCE_ANDROID_SPLASH, TARGET_ANDROID_SPLASH, ANDROID_SPLASHES);

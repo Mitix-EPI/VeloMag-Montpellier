@@ -17,6 +17,7 @@ import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 import { CommonModule } from '@angular/common';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -44,6 +45,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
     Clipboard,
     AppAvailability,
     InAppBrowser,
+    Geolocation
   ],
   bootstrap: [AppComponent],
 })

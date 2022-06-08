@@ -29,7 +29,6 @@ export class AppComponent {
     private platform: Platform,
     public translate: TranslateService,
     private bikeService: BikesService,
-    public toastController: ToastController
   ) {
     router.events
       .pipe(filter((event) => event instanceof NavigationEnd))

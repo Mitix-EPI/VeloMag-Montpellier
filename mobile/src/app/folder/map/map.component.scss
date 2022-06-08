@@ -13,6 +13,7 @@ body {
   height: 40%;
   width: 100%;
   background: var(--ion-item-background, var(--ion-background-color, #fff));
+  z-index: 1000;
 }
 
 .info-station-hide {

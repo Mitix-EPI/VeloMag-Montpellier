@@ -2,7 +2,6 @@ import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/co
 import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
-import OSM from 'ol/source/OSM';
 import Point from 'ol/geom/Point';
 import Feature from 'ol/Feature';
 import { useGeographic } from 'ol/proj';
@@ -22,6 +21,9 @@ import Cluster from 'ol/source/Cluster';
 import { BikesService } from 'src/app/service/bikes.service';
 import { defaults as defaultInteractions, Select } from 'ol/interaction';
 import { ActivatedRoute, Router } from '@angular/router';
+import TileJSON from 'ol/source/TileJSON';
+import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-map',
@@ -33,6 +35,9 @@ export class MapComponent implements OnInit, AfterViewInit {
   view: any;
   initialCoordinates = [3.876716, 43.610769];
   selectedFeature = null;
+  bikesPriority = true; // Bikes priority or Slots priority
+  informations = null;
+  locationPoint = new Point([0, 0]); // Location point (hidden by default)
 
   earthquakeFill = new Fill({
     color: 'rgba(255, 153, 0, 0.8)',
@@ -56,7 +61,9 @@ export class MapComponent implements OnInit, AfterViewInit {
     private bikesService: BikesService,
     public activatedRoute: ActivatedRoute,
     private router: Router,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private geolocation: Geolocation,
+    public toastController: ToastController
   ) {
     this.activatedRoute.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
@@ -65,7 +72,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ngAfterViewInit() {
     this.bikesService.updateBikes().then((_) => {
@@ -89,11 +96,16 @@ export class MapComponent implements OnInit, AfterViewInit {
       center: this.initialCoordinates,
       zoom: 16,
     });
+    const backgroundSource = new TileJSON({
+      url: 'https://api.maptiler.com/maps/basic/tiles.json?key=GMtn25OfudDkVwONlKeE',
+      tileSize: 512,
+      crossOrigin: 'anonymous'
+    });
     this.map = new Map({
       layers: [
         new TileLayer({
-          source: new OSM(),
-        }),
+          source: backgroundSource,
+        })
       ],
       target: 'map',
       view: this.view,
@@ -105,6 +117,7 @@ export class MapComponent implements OnInit, AfterViewInit {
       }),
     });
     this.bikesService.getStationsJSON().then((informations) => {
+      this.informations = informations;
       this.setMarkers(informations);
     });
   }
@@ -138,6 +151,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     // set markers with icons
     // https://viglino.github.io/ol-ext/examples/style/map.style.font.html
     const stations = informations.data.stations;
+    const bikes = this.bikesService.getBikes().data.stations;
     const source = new VectorSource();
     stations.forEach((station: any) => {
       const coordinates = [station.lon, station.lat];
@@ -146,7 +160,15 @@ export class MapComponent implements OnInit, AfterViewInit {
       feature.set('station_id', station.station_id);
       feature.set('favorite', station.favorite);
       feature.set('coords', { lat: station.lat, lon: station.lon });
-      source.addFeatures([feature]);
+      const bikeStation = bikes.find((bike) => bike.station_id === station.station_id);
+      if (bikeStation) {
+        feature.set('data', {
+          bikes: bikeStation.num_bikes_available,
+          slots: bikeStation.num_docks_available,
+          capacity: station.capacity,
+        });
+        source.addFeatures([feature]);
+      }
     });
 
     // select interaction working on "singleclick"
@@ -215,16 +237,15 @@ export class MapComponent implements OnInit, AfterViewInit {
         } else {
           const isFavorite = feature.get('features')[0].get('favorite');
           const name = feature.get('features')[0].get('name');
+          const data = feature.get('features')[0].get('data');
           style = new Style({
             image: new Icon({
               anchor: [0.5, 1],
-              scale: [0.045, 0.045],
-              src: isFavorite
-                ? 'assets/marker-favorite.png'
-                : 'assets/marker.png',
+              scale: [0.035, 0.035],
+              src: this.getIconName(isFavorite, data.bikes, data.slots, data.capacity),
             }),
             text: new Text({
-              text: this.troncateName(name, 10),
+              text: this.troncateName(name, 13),
               fill: new Fill({
                 color: '#000',
               }),
@@ -276,5 +297,63 @@ export class MapComponent implements OnInit, AfterViewInit {
     } else {
       return { lat: 0, lon: 0 };
     }
+  }
+
+  getIconName(isFavorite: boolean, bikes: number, slots: number, capacity: number): string {
+    let res = 'assets/marker';
+    if (isFavorite) {
+      res += '-favorite';
+    }
+    if (this.bikesPriority) {
+      if (bikes > capacity / 2) {
+        res += '-green';
+      } else if (bikes > capacity / 6) {
+        res += '-orange';
+      } else {
+        res += '-red';
+      }
+    } else {
+      if (slots > capacity / 2) {
+        res += '-green';
+      } else if (slots > capacity / 6) {
+        res += '-orange';
+      } else {
+        res += '-red';
+      }
+    }
+    res += '.png';
+    return res;
+  }
+
+  toggleBikePriority() {
+    this.bikesPriority = !this.bikesPriority;
+    this.setMarkers(this.informations);
+  }
+
+  getCurrentPosition() {
+    this.geolocation.getCurrentPosition().then((resp: any) => {
+      this.locationPoint = new Point([resp.coords.longitude, resp.coords.latitude]);
+      const pointFeature = new Feature(this.locationPoint);
+      const layer = new VectorLayer({
+        className: 'geolocation',
+        source: new VectorSource({features: [pointFeature]}),
+      });
+      this.map.addLayer(layer);
+      this.view.animate({ zoom: 17 }, { center: [resp.coords.longitude, resp.coords.latitude] });
+      const watch = this.geolocation.watchPosition();
+      watch.subscribe({
+        next: (data: any) => {
+          pointFeature.setGeometry(new Point([data.coords.longitude, data.coords.latitude]));
+        }, error: (error) => {
+          console.log('Error getting location', error);
+        }});
+    }, async (error) => {
+      console.log('Error getting location', error);
+      const toast = await this.toastController.create({
+        message: 'Please enable your GPS',
+        duration: 2000
+      });
+      toast.present();
+    });
   }
 }
