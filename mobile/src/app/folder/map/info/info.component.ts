@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BikesService } from 'src/app/service/bikes.service';
 import { ActionSheetController } from '@ionic/angular';
+import { isPlatform } from '@ionic/angular';
 
 @Component({
   selector: 'app-info',
@@ -67,6 +68,17 @@ export class InfoComponent implements OnInit {
     const travelMode = '&travelmode=bicycling';
 
     const actionLinks = [];
+    if (isPlatform('ios')) {
+      actionLinks.push({
+        text: 'Map',
+        icon: 'map-outline',
+        handler: () => {
+          window.open(
+            'maps://?q=' + destination,
+          );
+        },
+      });
+    }
     actionLinks.push({
       text: 'Google Maps',
       icon: 'map-outline',

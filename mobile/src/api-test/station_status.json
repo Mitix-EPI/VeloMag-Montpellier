@@ -35,9 +35,9 @@
             },
             {
                 "station_id": "004",
-                "num_bikes_available": 3,
+                "num_bikes_available": 16,
                 "num_bikes_disabled": 0,
-                "num_docks_available": 13,
+                "num_docks_available": 0,
                 "is_installed": 1,
                 "is_renting": 1,
                 "is_returning": 1,

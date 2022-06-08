@@ -7,9 +7,6 @@ import * as informations from 'src/api-test/station_information.json';
 import * as status from 'src/api-test/station_status.json';
 import { Http, HttpResponse } from '@capacitor-community/http';
 import { isPlatform } from '@ionic/angular';
-import { Observable } from 'rxjs';
-declare const require;
-const xml2js = require("xml2js");
 
 @Injectable({
   providedIn: 'root',
@@ -119,32 +116,6 @@ export class BikesService {
         }, (error) => {
           reject(error);
         });
-    });
-  }
-
-  async getVersion() {
-    const remoteUrl = 'https://github.com/Mitix-EPI/VeloMag-Montpellier/releases/latest/download/';
-    return new Promise((resolve, reject) => {
-      if (isPlatform('capacitor')) {
-        const options = {
-          url: remoteUrl + 'update.xml',
-        };
-        Http.get(options).then((response: HttpResponse) => {
-          const xml = response.data;
-          xml2js.parseString(xml, (err, result) => {
-            if (err) {
-              reject(err);
-            } else {
-              console.log("Test", result);
-              const version = result["update"]["version"][0]
-              // Convert version to number
-              const versionNumber = parseInt(version.replace(/\./g, ''));
-              resolve(versionNumber);
-            }
-          });
-          resolve(this.stations);
-        });
-      }
     });
   }
 }
