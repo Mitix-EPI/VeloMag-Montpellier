@@ -39,6 +39,12 @@
         ></ion-icon>
       </ion-fab-button>
     </ion-fab>
+    <ion-fab vertical="center" horizontal="end">
+      <ion-fab-button color="light" (click)="toggleData(station.id, station.name)">
+          <ion-icon *ngIf="!station.dataShowing" name="analytics-outline"></ion-icon>
+          <ion-icon *ngIf="station.dataShowing" name="arrow-undo-outline"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
     <img
       [src]="'assets/' + getStationName(station.name) + '.jpg'"
       alt="Missing image" onerror="this.onerror=null;this.src='assets/missing-station.jpg';"
@@ -50,27 +56,36 @@
       </ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <ion-item shape="round">
-        <ion-icon slot="start" name="bicycle-outline"></ion-icon>
-        <ion-label>{{ 'Bikes available' | translate }}</ion-label>
-        <ion-badge
-          slot="end"
-          [color]="getColor(station.bikes, station.capacity)"
-          >{{ station.bikes }}</ion-badge
-        >
-      </ion-item>
+      <div *ngIf="!station.dataShowing">
+        <ion-item shape="round">
+          <ion-icon slot="start" name="bicycle-outline"></ion-icon>
+          <ion-label>{{ 'Bikes available' | translate }}</ion-label>
+          <ion-badge
+            slot="end"
+            [color]="getColor(station.bikes, station.capacity)"
+            >{{ station.bikes }}</ion-badge
+          >
+        </ion-item>
 
-      <ion-item shape="round">
-        <ion-icon slot="start" name="contract-outline"></ion-icon>
-        <ion-label>{{ 'Slots available' | translate }}</ion-label>
-        <ion-badge
-          slot="end"
-          [color]="getColor(station.slots, station.capacity)"
-          >{{ station.slots }}</ion-badge
-        >
-      </ion-item>
+        <ion-item shape="round">
+          <ion-icon slot="start" name="contract-outline"></ion-icon>
+          <ion-label>{{ 'Slots available' | translate }}</ion-label>
+          <ion-badge
+            slot="end"
+            [color]="getColor(station.slots, station.capacity)"
+            >{{ station.slots }}</ion-badge
+          >
+        </ion-item>
+      </div>
+      <div [class.ion-hide]="!station.dataShowing">
+        <!-- loading -->
+        <div class="ion-text-center" *ngIf="!station.dataLoaded">
+          <ion-spinner name="crescent"></ion-spinner>
+        </div>
+        <canvas [class.ion-hide]="!station.dataLoaded" [id]="'barChart' + station.id"></canvas>
+      </div>
     </ion-card-content>
-    <ion-footer class="ion-text-center">
+    <ion-footer *ngIf="!station.dataShowing" class="ion-text-center">
       <ion-button
         shape="round"
         fill="outline"

@@ -7,6 +7,7 @@ import * as informations from 'src/api-test/station_information.json';
 import * as status from 'src/api-test/station_status.json';
 import { Http, HttpResponse } from '@capacitor-community/http';
 import { isPlatform } from '@ionic/angular';
+import { CollectData } from '../interface/collectdata.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +15,7 @@ import { isPlatform } from '@ionic/angular';
 export class BikesService {
   public bikes: Bikes = null;
   public stations: Stations = null;
+  public collectData: CollectData = null;
 
   private apiUrl = 'https://api.velomag-mtp.com';
   private informationsBikesUrl =
@@ -24,7 +26,7 @@ export class BikesService {
   constructor(
     private storage: StorageService,
     private httpClient: HttpClient
-  ) {}
+  ) { }
 
   public getBikes(): Bikes {
     return this.bikes;
@@ -116,6 +118,48 @@ export class BikesService {
         }, (error) => {
           reject(error);
         });
+    });
+  }
+
+  async getCollectData() {
+    return new Promise((resolve, reject) => {
+      this.httpClient
+        .get(this.apiUrl + '/collect_data')
+        .subscribe((datas: any) => {
+          if (datas.code === 200) {
+            this.collectData = datas.data;
+            resolve(this.collectData);
+          } else {
+            reject(datas);
+          }
+        }
+          , (error) => {
+            reject(error);
+          });
+    });
+  }
+
+  async getCollectDataFromStationName(stationName: string) {
+    return new Promise((resolve, reject) => {
+      if (this.collectData) {
+        const stationData = this.collectData[stationName];
+        if (stationData) {
+          resolve(stationData);
+        } else {
+          reject(stationData);
+        }
+      } else {
+        this.getCollectData().then((collectData: any) => {
+          const stationData = this.collectData[stationName];
+          if (stationData) {
+            resolve(stationData);
+          } else {
+            reject(stationData);
+          }
+        }, (error) => {
+          reject(error);
+        });
+      }
     });
   }
 }

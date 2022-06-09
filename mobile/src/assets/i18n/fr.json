@@ -33,5 +33,7 @@
     "Please enable your GPS": "Veuillez activer votre GPS",
     "Mail copied !": "Mail copié !",
     "Your report has been sent. Thank you!": "Votre signalement a été envoyé. Merci !",
-    "Error while sending your report. If the problem persists, please contact us. ": "Erreur lors de l'envoi de votre signalement. Si le problème persiste, veuillez nous contacter. "
+    "Error while sending your report. If the problem persists, please contact us. ": "Erreur lors de l'envoi de votre signalement. Si le problème persiste, veuillez nous contacter. ",
+    "Number of bikes": "Nombre de vélos",
+    "Number of slots": "Nombre de places"
 }
