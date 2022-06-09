@@ -91,11 +91,14 @@ def update_mean(input_path: str, output_path: str) -> pd.DataFrame:
     f.close()
 
 
-def update_general_mean():
+def update_general_mean(stations: List[Station] = None):
     logging.info("Updating general mean...")
-    hours = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11",
+    hours = ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11",
              "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"]
+    
     res = {}
+    for station in stations:
+        res[station.name] = {}
 
     for hour in hours:
         try:
@@ -103,19 +106,17 @@ def update_general_mean():
             stations = json.loads(f.read())["stations"]
             f.close()
             for station in stations:
-                res[station["name"]] = {
-                    hour: {
-                        "bikes": station["bikes"],
-                        "slots": station["slots"],
-                        "capacity": station["capacity"],
-                    }
+                res[station["name"]][hour] = {
+                    "bikes": station["bikes"],
+                    "slots": station["slots"],
+                    "capacity": station["capacity"],
                 }
         except Exception as e:
             logging.error("Error while getting mean data: %s", e)
             continue
     # Write res in a CSV file
     f = open("collect_data/data/mean_general.json", "w")
-    f.write(json.dumps(res, sort_keys=True, ensure_ascii=False))
+    f.write(json.dumps(res, ensure_ascii=False))
     f.close()
 
 
@@ -138,4 +139,4 @@ def collect_data():
     output_path = os.path.join(
         "collect_data/data", "mean_" + str(hour) + ".json")
     update_mean(input_path, output_path)
-    update_general_mean()
+    update_general_mean(stations)

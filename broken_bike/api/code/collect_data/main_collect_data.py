@@ -19,7 +19,7 @@ def every(delay, task):
 
 def launch_collect_data():
     print("launching")
-    forty_minutes = 40
+    forty_minutes = 40 * 60
     logging.basicConfig(level=logging.INFO)
     if not os.path.exists("collect_data/data"):
         os.mkdir("collect_data/data")
