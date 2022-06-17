@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { Platform, ToastController } from '@ionic/angular';
+import { MenuController, Platform, ToastController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { filter } from 'rxjs/operators';
 import { BikesService } from './service/bikes.service';
+import { StorageService } from './service/storage.service';
 
 @Component({
   selector: 'app-root',
@@ -29,6 +30,8 @@ export class AppComponent {
     private platform: Platform,
     public translate: TranslateService,
     private bikeService: BikesService,
+    private storage: StorageService,
+    private menu: MenuController
   ) {
     router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
@@ -41,6 +44,10 @@ export class AppComponent {
       });
     translate.addLangs(['en', 'fr']);
     translate.setDefaultLang('fr');
+    this.checkIsFavoritesStation();
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      this.menu.toggle();
+    });
   }
 
   getMaxEdgeStart(): number {
@@ -49,5 +56,18 @@ export class AppComponent {
     } else {
       return 10000;
     }
+  }
+
+  checkIsFavoritesStation() {
+    this.storage.isReady().then(() => {
+      this.bikeService.getFavoriteStations().then((favorites) => {
+        if (favorites && favorites.length > 0) {
+          // Go to favorites page
+        } else {
+          // Go to map page
+          this.router.navigateByUrl('/folder/Map');
+        }
+      });
+    });
   }
 }

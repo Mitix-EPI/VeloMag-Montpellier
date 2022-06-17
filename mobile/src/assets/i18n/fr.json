@@ -13,7 +13,7 @@
     "No stations found": "Aucune station trouvée",
     "Pin your favorite stations !": "Épinglez vos stations préférées !",
     "Path to station": "Chemin vers la station",
-    "Form to report bike": "Formulaire de signalement de vélo",
+    "Form to report bike": "Signalement de vélo",
     "Bike id": "ID du vélo",
     "Priority of the report": "Priorité du signalement",
     "Low": "Faible",
@@ -35,5 +35,6 @@
     "Your report has been sent. Thank you!": "Votre signalement a été envoyé. Merci !",
     "Error while sending your report. If the problem persists, please contact us. ": "Erreur lors de l'envoi de votre signalement. Si le problème persiste, veuillez nous contacter. ",
     "Number of bikes": "Nombre de vélos",
-    "Number of slots": "Nombre de places"
+    "Number of slots": "Nombre de places",
+    "Need help ?": "Besoin d'aide ?"
 }

@@ -25,6 +25,8 @@ import TileJSON from 'ol/source/TileJSON';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
 import { ToastController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
+import { StorageService } from 'src/app/service/storage.service';
+import { singleClick } from 'ol/events/condition';
 
 @Component({
   selector: 'app-map',
@@ -66,7 +68,8 @@ export class MapComponent implements OnInit, AfterViewInit {
     private changeDetectorRef: ChangeDetectorRef,
     private geolocation: Geolocation,
     public toastController: ToastController,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private storage: StorageService
   ) {
     this.activatedRoute.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
@@ -126,13 +129,25 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   selectStyle(feature) {
-    const isFavorite = feature.get('features')[0]?.get('favorite');
-    const name = feature.get('features')[0]?.get('name');
+    let isFavorite = null;
+    let name = '';
+    let iconName = '';
+    if (feature.get('features')) {
+      isFavorite = feature.get('features')[0]?.get('favorite');
+      name = feature.get('features')[0]?.get('name');
+      iconName = feature.get('features')[0]?.get('iconName');
+    } else {
+      isFavorite = feature.get('favorite');
+      name = feature.get('name');
+      const data = feature.get('data');
+      iconName = this.getIconName(isFavorite, data.bikes, data.slots, data.capacity)
+      feature.set('iconName', iconName);
+    }
     const style = new Style({
       image: new Icon({
         anchor: [0.5, 1],
         scale: [0.05, 0.05],
-        src: isFavorite ? 'assets/marker-favorite.png' : 'assets/marker.png',
+        src: iconName,
       }),
       text: new Text({
         text: name,
@@ -180,6 +195,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     const selectSingleClick = new Select({
       style: this.selectStyle,
       hitTolerance: 20,
+      condition: singleClick,
     });
     this.map.addInteraction(selectSingleClick);
     selectSingleClick.on('select', (e) => {
@@ -194,21 +210,19 @@ export class MapComponent implements OnInit, AfterViewInit {
         if (elem.classList.contains('info-station-hide')) {
           elem.classList.remove('info-station-hide');
         }
+        const coords = e.target
+          .getFeatures()
+          .getArray()[0]
+          .getGeometry()
+          .getCoordinates();
+        coords[1] = coords[1] - 0.001;
         this.selectedFeature = e.target
           .getFeatures()
           .getArray()[0]
           .get('features')[0];
         // Force detect changes
         this.changeDetectorRef.detectChanges();
-        console.log(this.selectedFeature);
-        const coords = e.target
-          .getFeatures()
-          .getArray()[0]
-          .getGeometry()
-          .getCoordinates();
-        coords[1] = coords[1] - 0.002;
-        this.view.animate({ zoom: 16 }, { center: coords });
-      }
+      };
     });
 
     const clusterSource = new Cluster({
@@ -243,11 +257,13 @@ export class MapComponent implements OnInit, AfterViewInit {
           const isFavorite = feature.get('features')[0].get('favorite');
           const name = feature.get('features')[0].get('name');
           const data = feature.get('features')[0].get('data');
+          const iconName = this.getIconName(isFavorite, data.bikes, data.slots, data.capacity)
+          feature.get('features')[0].set('iconName', iconName);
           style = new Style({
             image: new Icon({
               anchor: [0.5, 1],
               scale: [0.035, 0.035],
-              src: this.getIconName(isFavorite, data.bikes, data.slots, data.capacity),
+              src: iconName,
             }),
             text: new Text({
               text: this.troncateName(name, 13),
@@ -285,6 +301,39 @@ export class MapComponent implements OnInit, AfterViewInit {
       return this.selectedFeature.get('station_id');
     } else {
       return -1;
+    }
+  }
+
+  isFavoriteSelectedStation() {
+    if (this.selectedFeature) {
+      return this.selectedFeature.get('favorite');
+    } else {
+      return false;
+    }
+  }
+
+  toggleFavoriteSelectedStation(event) {
+    if (this.selectedFeature) {
+      this.storage.get('favoriteStations').then(favoriteStations => {
+        const isFavorite = this.selectedFeature.get('favorite');
+        const stationId = this.selectedFeature.get('station_id');
+        for (let station of this.informations.data.stations) {
+          if (station.station_id === stationId) {
+            const isFavorite = favoriteStations.indexOf(stationId) !== -1;
+            if (isFavorite) {
+              favoriteStations.splice(favoriteStations.indexOf(stationId), 1);
+            } else {
+              favoriteStations.push(stationId);
+            }
+            station.favorite = !isFavorite;
+            break;
+          }
+        }
+        this.selectedFeature.set('favorite', !isFavorite);
+        this.storage.set('favoriteStations', favoriteStations);
+      });
+    } else {
+      console.log('no selected station');
     }
   }
 
@@ -341,7 +390,7 @@ export class MapComponent implements OnInit, AfterViewInit {
       const pointFeature = new Feature(this.locationPoint);
       const layer = new VectorLayer({
         className: 'geolocation',
-        source: new VectorSource({features: [pointFeature]}),
+        source: new VectorSource({ features: [pointFeature] }),
         style: new Style({
           image: new CircleStyle({
             radius: 8,
@@ -364,7 +413,8 @@ export class MapComponent implements OnInit, AfterViewInit {
           pointFeature.setGeometry(new Point([data.coords.longitude, data.coords.latitude]));
         }, error: (error) => {
           console.log('Error getting location', error);
-        }});
+        }
+      });
     }, async (error) => {
       console.log('Error getting location', error);
       const toast = await this.toastController.create({

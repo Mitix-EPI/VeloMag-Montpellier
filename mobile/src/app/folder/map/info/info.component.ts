@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { BikesService } from 'src/app/service/bikes.service';
 import { ActionSheetController } from '@ionic/angular';
 import { isPlatform } from '@ionic/angular';
@@ -12,6 +12,8 @@ export class InfoComponent implements OnInit {
   @Input() stationId = 0;
   @Input() stationName = 'Unknown';
   @Input() coords = { lat: 0, lon: 0 };
+  @Input() isFavorite: boolean = false;
+  @Output() favoriteToggle = new EventEmitter();
 
   isLoaded = false;
   stationBikes = 0;
@@ -25,6 +27,11 @@ export class InfoComponent implements OnInit {
 
   ngOnInit() {
     this.initialize();
+  }
+
+  toggleFavorite() {
+    this.isFavorite = !this.isFavorite;
+    this.favoriteToggle.emit('');
   }
 
   getColor(nb: number, total: number) {

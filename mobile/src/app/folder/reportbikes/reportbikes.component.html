@@ -8,6 +8,7 @@
           </ion-card-header>
           <ion-card-content>
             <form [formGroup]="reportBikes" (ngSubmit)="submitForm()">
+              <ion-label><a href="https://velomag-mtp.com/about" target="_blank">{{ 'Need help ?' | translate }}</a></ion-label>
               <ion-item>
                 <ion-label>{{ 'Bike id' | translate }}: <span style="color: red">*</span></ion-label>
                 <ion-input formControlName="bike_id" type="number" min="1"></ion-input>

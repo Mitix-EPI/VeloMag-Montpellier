@@ -14,5 +14,7 @@
     [stationId]="getIdSelectedStation()"
     [stationName]="getNameSelectedStation()"
     [coords]="getCoordsSelectedStation()"
+    [isFavorite]="isFavoriteSelectedStation()"
+    (favoriteToggle)="toggleFavoriteSelectedStation($event)"
   ></app-info>
 </div>

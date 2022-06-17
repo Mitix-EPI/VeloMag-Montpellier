@@ -1,5 +1,6 @@
 <ion-item class="station-info">
   <ion-list-header class="ion-text-center">{{ stationName }}</ion-list-header>
+  <ion-icon (click)="toggleFavorite()" [ngClass]="{'red-heart': isFavorite}" [name]="isFavorite ? 'heart-sharp' : 'heart-outline'"></ion-icon>
   <ion-thumbnail slot="end" class="ion-margin">
     <img [src]="'assets/' + getStationName(stationName) + '.jpg'"  alt="Missing image" onerror="this.onerror=null;this.src='assets/missing-station.jpg';"/>
   </ion-thumbnail>
